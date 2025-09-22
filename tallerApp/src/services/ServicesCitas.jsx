@@ -1,7 +1,6 @@
-//(GET)
-async function getLista() {
+async function getCitas() {
     try {
-        const peticion = await fetch('http://localhost:3001/tareas', {
+        const peticion = await fetch('http://localhost:3001/citas', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -9,7 +8,7 @@ async function getLista() {
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al obtener las Tareas");
+            throw new Error("Error al obtener las citas");
         }
 
         const consultas = await peticion.json();
@@ -21,10 +20,9 @@ async function getLista() {
     }
 }
 
-//(POST)
-async function createLista(nuevaConsulta) {
+async function createCitas(nuevaConsulta) {
     try {
-        const peticion = await fetch('http://localhost:3001/tareas', {
+        const peticion = await fetch('http://localhost:3001/citas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,11 +43,10 @@ async function createLista(nuevaConsulta) {
     }
 }
 
-//(PUT || PATCH)
-async function updateLista(id, datosActualizados) {
+async function updateCitas(id, datosActualizados) {
     try {
-        const peticion = await fetch(`http://localhost:3001/tareas/${id}`, {
-            method: 'PATCH', // usar PATCH si solo se quiere modificar un atributo
+        const peticion = await fetch(`http://localhost:3001/citas/${id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -57,7 +54,7 @@ async function updateLista(id, datosActualizados) {
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al actualizar la lista");
+            throw new Error("Error al actualizar la citas");
         }
 
         const consultaActualizada = await peticion.json();
@@ -69,10 +66,9 @@ async function updateLista(id, datosActualizados) {
     }
 }
 
-//(DELETE)
-async function deleteLista(id) {
+async function deleteCitas(id) {
     try {
-        const peticion = await fetch(`http://localhost:3001/tareas/${id}`, {
+        const peticion = await fetch(`http://localhost:3001/citas/${id}`, {
             method: 'DELETE'
         });
 
@@ -88,4 +84,4 @@ async function deleteLista(id) {
     }
 }
 
-export default { getLista, createLista, updateLista, deleteLista};
+export default { getCitas, createCitas, updateCitas, deleteCitas};
