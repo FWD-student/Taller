@@ -1,4 +1,5 @@
 import React from 'react'
+import '../Footer/footer.css'
 
 
 function Footer() {
@@ -15,14 +16,14 @@ function Footer() {
 
   return (
     <footer className='footer'>
-      <div className='footer-container'>
-        <div className='social-section'>
+      <div className='contenedorFooter'>
+        <div className='seccionRedes'>
           <h3>Síguenos en nuestras redes sociales</h3>
-          <div className='social-buttons'>
+          <div className='btnsRedSocial'>
             {redesSociales.map((red, index) => (
               <button 
                 key={index}
-                className='social-btn'
+                className='btnRedSocial'
                 onClick={() => handleRedirect(red.url)}
                 title={red.nombre}
               >
@@ -31,12 +32,13 @@ function Footer() {
             ))}
           </div>
         </div>
-        <div className='contact-info'>
+        <div className='infoContact'>
           <p>© 2025 Taller de Motos. Todos los derechos reservados.</p>
           <p>Contacto: info@tallerdemotos.com | Teléfono: 8888-7777</p>
         </div>
       </div>
     </footer>
+
   )
 }
 

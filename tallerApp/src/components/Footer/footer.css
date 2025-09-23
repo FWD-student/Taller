@@ -1,0 +1,203 @@
+/* Estilos para el Footer - Taller JPL */
+
+.footer {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  margin-top: auto;
+  border-top: 3px solid #e74c3c;
+}
+
+.contenedorFooter {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Sección de redes sociales */
+.seccionRedes {
+  text-align: center;
+}
+
+.seccionRedes h3 {
+  color: #e74c3c;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btnsRedSocial {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btnRedSocial {
+  background-color: #34495e;
+  color: #ecf0f1;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: capitalize;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.btnRedSocial:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.btnRedSocial:active {
+  transform: translateY(0);
+}
+
+/* Información de contacto */
+.infoContact {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid #34495e;
+}
+
+.infoContact p {
+  margin: 8px 0;
+  color: #bdc3c7;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.infoContact p:first-child {
+  font-weight: 600;
+  color: #ecf0f1;
+}
+
+.infoContact p:last-child {
+  font-size: 13px;
+}
+
+/* Separador visual entre copyright y contacto */
+.infoContact p:first-child::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: #e74c3c;
+  margin: 10px auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedorFooter {
+    padding: 30px 15px 15px;
+    gap: 25px;
+  }
+
+  .seccionRedes h3 {
+    font-size: 18px;
+  }
+
+  .btnsRedSocial {
+    gap: 12px;
+  }
+
+  .btnRedSocial {
+    padding: 10px 15px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+
+  .infoContact p {
+    font-size: 13px;
+  }
+
+  .infoContact p:last-child {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedorFooter {
+    padding: 25px 15px 15px;
+  }
+
+  .seccionRedes h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .btnsRedSocial {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btnRedSocial {
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 15px;
+  }
+
+  .infoContact p {
+    font-size: 12px;
+  }
+
+  .infoContact p:last-child {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+
+/* Estados adicionales para diferentes redes sociales */
+.btnRedSocial[title*="Facebook"]:hover {
+  background-color: #3b5998;
+  border-color: #3b5998;
+}
+
+.btnRedSocial[title*="Instagram"]:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  border-color: #e6683c;
+}
+
+.btnRedSocial[title*="WhatsApp"]:hover {
+  background-color: #25d366;
+  border-color: #25d366;
+}
+
+.btnRedSocial[title*="YouTube"]:hover {
+  background-color: #ff0000;
+  border-color: #ff0000;
+}
+
+.btnRedSocial[title*="TikTok"]:hover {
+  background-color: #000000;
+  border-color: #fe2c55;
+}
+
+/* Efecto para el footer completo */
+.footer {
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+}
