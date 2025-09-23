@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 function Footer() {
   const redesSociales = [
     { nombre: 'Facebook', url: 'https://facebook.com', icono: 'FB' },
@@ -13,14 +14,15 @@ function Footer() {
   };
 
   return (
-    <footer>
-      <div>
-        <div>
+    <footer className='footer'>
+      <div className='footer-container'>
+        <div className='social-section'>
           <h3>Síguenos en nuestras redes sociales</h3>
-          <div>
+          <div className='social-buttons'>
             {redesSociales.map((red, index) => (
               <button 
                 key={index}
+                className='social-btn'
                 onClick={() => handleRedirect(red.url)}
                 title={red.nombre}
               >
@@ -29,9 +31,9 @@ function Footer() {
             ))}
           </div>
         </div>
-        <div>
-          <p>© 2025 Mi Aplicacion. Todos los derechos reservados.</p>
-          <p>Contacto: info@gmail.com | Teléfono: 8888-7777</p>
+        <div className='contact-info'>
+          <p>© 2025 Taller de Motos. Todos los derechos reservados.</p>
+          <p>Contacto: info@tallerdemotos.com | Teléfono: 8888-7777</p>
         </div>
       </div>
     </footer>

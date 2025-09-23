@@ -1,12 +1,13 @@
-# React + Vite
+Seccion de estatus.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Se inicializo el dia jueves 18/sep/2025
 
-Currently, two official plugins are available:
+Yo empece el dia domingo por la noche 21/sep/2025
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Habia hecho avances importantes de form o el home pero tuve un problema con la subida al git y tenia problemas de funcionamiento.
 
-## Expanding the ESLint configuration
+Dia uno (22-09-2025)
+Estuve puliendo los errores aunque no pude hacer hasta tarde, mucha desconcenmtracion, en casa ya mas traqnui pude encontrarlosy solucionar unas rustas que me daban conflicto.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Dia dos (23-09-2025)
+Espero agregar mas cosas a mi home y rutas, tengo una duda de como organizar mis componentes he estado viendo alternativas pero bueno, quiero avanzar lo mas que pueda.
