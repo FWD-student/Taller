@@ -99,6 +99,18 @@
   margin: 10px auto;
 }
 
+.iconoRed {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.btnRedSocial {
+  display: flex;
+  align-items: center;
+  /* tus otros estilos */
+}
 /* Responsive */
 @media (max-width: 768px) {
   .contenedorFooter {

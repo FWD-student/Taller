@@ -20,7 +20,21 @@ function FormCitas() {
     cargarCitas();
   }, []);
 
-  //funciontes integradas
+  useEffect(() => {
+  const usuarioGuardado = sessionStorage.getItem('usuario');
+  if (usuarioGuardado) {
+    const { nombre, email, telefono } = JSON.parse(usuarioGuardado);
+    setFormData(prev => ({
+      ...prev,
+      nombre,
+      email,
+      telefono
+    }));
+  }
+
+  cargarCitas();
+}, []);
+
   const obtenerFechaMinima = () => {
     const hoy = new Date();
     return hoy.toISOString().split('T')[0];
@@ -40,7 +54,6 @@ function FormCitas() {
     const { name, value } = evento.target;
     
     if (name === 'telefono') {
-      // Remover cualquier caracter que no sea numero
       const soloNumeros = value.replace(/\D/g, '');
       setFormData(prev => ({
         ...prev,
@@ -65,7 +78,6 @@ function FormCitas() {
   };
 
   const validarFormulario = () => {
-    // Campos obligatorios
     if (!formData.nombre.trim()) {
       mostrarAlerta('warning', 'Campo requerido', 'El nombre es obligatorio');
       return false;
@@ -101,7 +113,7 @@ function FormCitas() {
     if (formData.fecha) {
       const fechaSeleccionada = new Date(formData.fecha);
       const hoy = new Date();
-      hoy.setHours(0, 0, 0, 0); // Resetear horas para comparar solo fechas
+      hoy.setHours(0, 0, 0, 0);
       
       if (fechaSeleccionada < hoy) {
         mostrarAlerta('warning', 'Fecha inválida', 'No puedes seleccionar una fecha anterior a hoy');

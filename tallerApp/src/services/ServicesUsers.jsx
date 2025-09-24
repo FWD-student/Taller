@@ -1,6 +1,6 @@
-async function getCitas() {
+async function getUsuarios() {
     try {
-        const peticion = await fetch('http://localhost:3001/citas', {
+        const peticion = await fetch('http://localhost:3001/usuarios', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -8,21 +8,21 @@ async function getCitas() {
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al obtener las citas");
+            throw new Error("Error al obtener las usuarios");
         }
 
         const consultas = await peticion.json();
         return consultas;
 
     } catch (error) {
-        console.error("Hay problemas para obtener", error);
+        console.error("Hay problemas para obtener user", error);
         throw error;
     }
 }
 
-async function createCitas(nuevaConsulta) {
+async function createUsuarios(nuevaConsulta) {
     try {
-        const peticion = await fetch('http://localhost:3001/citas', {
+        const peticion = await fetch('http://localhost:3001/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ async function createCitas(nuevaConsulta) {
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al crear la cita");
+            throw new Error("Error al agregar usuario");
         }
 
         const consultaCreada = await peticion.json();
@@ -43,9 +43,9 @@ async function createCitas(nuevaConsulta) {
     }
 }
 
-async function updateCitas(id, datosActualizados) {
+async function updateUsuarios(id, datosActualizados) {
     try {
-        const peticion = await fetch(`http://localhost:3001/citas/${id}`, {
+        const peticion = await fetch(`http://localhost:3001/usuarios/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ async function updateCitas(id, datosActualizados) {
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al actualizar la citas");
+            throw new Error("Error al actualizar la usuarios");
         }
 
         const consultaActualizada = await peticion.json();
@@ -66,17 +66,17 @@ async function updateCitas(id, datosActualizados) {
     }
 }
 
-async function deleteCitas(id) {
+async function deleteUsuarios(id) {
     try {
-        const peticion = await fetch(`http://localhost:3001/citas/${id}`, {
+        const peticion = await fetch(`http://localhost:3001/usuarios/${id}`, {
             method: 'DELETE'
         });
 
         if (!peticion.ok) {
-            throw new Error("Error al eliminar la cita");
+            throw new Error("Error al eliminar");
         }
 
-        return { mensaje: "Cita eliminada correctamente" };
+        return { mensaje: "Consulta eliminada correctamente" };
 
     } catch (error) {
         console.error("Problema existente", error);
@@ -84,4 +84,4 @@ async function deleteCitas(id) {
     }
 }
 
-export default { getCitas, createCitas, updateCitas, deleteCitas};
+export default { getUsuarios, createUsuarios, updateUsuarios, deleteUsuarios};

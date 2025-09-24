@@ -1,3 +1,13 @@
 {
-  "citas": []
+  "citas": [],
+  "usuarios": [
+    {
+      "id": "37d5",
+      "cedula": "123456789",
+      "nombre": "luis",
+      "telefono": "232131232",
+      "email": "hola@gmail.com",
+      "password": "123"
+    }
+  ]
 }

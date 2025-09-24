@@ -1,0 +1,135 @@
+.paginaSesion {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  padding: 20px;
+}
+
+.contenedorSesion {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  width: 100%;
+  max-width: 450px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contenedorSesion:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tabsSesion {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tabBtn {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #6c757d;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tabBtn.activo {
+  color: #2c3e50;
+  border-bottom-color: #e74c3c;
+  font-weight: 600;
+}
+
+.formSesion h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 2px solid #e74c3c;
+  padding-bottom: 8px;
+}
+
+.subtitulo {
+  color: #6c757d;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.grupoInput {
+  margin-bottom: 15px;
+}
+
+.grupoInputDoble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.grupoInput label {
+  display: block;
+  margin-bottom: 5px;
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.grupoInput input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.grupoInput input:focus {
+  outline: none;
+  border-color: #e74c3c;
+}
+
+.btnPrincipal {
+  width: 100%;
+  padding: 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.btnPrincipal:hover {
+  background-color: #c0392b;
+}
+
+.enlaceCambio {
+  text-align: center;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.enlaceCambio span {
+  color: #e74c3c;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.enlaceCambio span:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .grupoInputDoble {
+    grid-template-columns: 1fr;
+  }
+}

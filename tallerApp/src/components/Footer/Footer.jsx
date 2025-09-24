@@ -1,13 +1,16 @@
 import React from 'react'
 import '../Footer/footer.css'
-
+import icoF from '../../image/icons/fc.png'
+import icoI from '../../image/icons/inst.png'
+import icoW from '../../image/icons/wats.png'
+import icoY from '../../image/icons/yt.png'
 
 function Footer() {
   const redesSociales = [
-    { nombre: 'Facebook', url: 'https://facebook.com', icono: 'FB' },
-    { nombre: 'WhatsApp', url: 'https://wa.me/88887777', icono: 'WA' },
-    { nombre: 'Instagram', url: 'https://instagram.com', icono: 'IG' },
-    { nombre: 'YouTube', url: 'https://youtube.com', icono: 'YT' }
+    { nombre: 'Facebook', url: 'https://facebook.com', img: icoF },
+    { nombre: 'WhatsApp', url: 'https://wa.me/63480444', img: icoW },
+    { nombre: 'Instagram', url: 'https://www.instagram.com/__luis_9m/', img: icoI },
+    { nombre: 'YouTube', url: 'https://youtube.com', img: icoY }
   ];
 
   const handleRedirect = (url) => {
@@ -27,18 +30,18 @@ function Footer() {
                 onClick={() => handleRedirect(red.url)}
                 title={red.nombre}
               >
-                {red.icono} {red.nombre}
+                <img src={red.img} alt={red.nombre} className='iconoRed' />
+                {red.nombre}
               </button>
             ))}
           </div>
         </div>
         <div className='infoContact'>
           <p>© 2025 Taller de Motos. Todos los derechos reservados.</p>
-          <p>Contacto: info@tallerdemotos.com | Teléfono: 8888-7777</p>
+          <p>Contacto: info@tallerdemotos.com | Teléfono: 6348-0444</p>
         </div>
       </div>
     </footer>
-
   )
 }
 
