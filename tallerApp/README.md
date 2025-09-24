@@ -11,3 +11,6 @@ Estuve puliendo los errores aunque no pude hacer hasta tarde, mucha desconcenmtr
 
 Dia dos (23-09-2025)
 Espero agregar mas cosas a mi home y rutas, tengo una duda de como organizar mis componentes he estado viendo alternativas pero bueno, quiero avanzar lo mas que pueda.
+
+Dia tres (24-09-2025)
+El dia de ayer hice avances, mas que nada por la noche, y pues estoy trabajando con repos, porque el pc de clases se infecto del malware y para aislarme he decidido hacerlo de esta manera, ayer hice lo del login, sesionstorage, carrusel, autollenado en caso de haber una sesion abierta, en clases estoy trabajando las demas rutas y pequeñas correccion y depurando ideas con el profe, por ahora no hay pegas o estancamiento.
