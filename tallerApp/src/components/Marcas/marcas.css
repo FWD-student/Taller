@@ -1,0 +1,33 @@
+.marcasContainer {
+  max-width: 700px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.tituloMarcas {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.logoMarca {
+    height: 200px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    
+    display: block;
+    margin: 0 auto;
+    
+    filter: contrast(1.1) brightness(1.1);
+
+    transform: scale(1);
+    transform-origin: center;
+}
+
+.carousel-item {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

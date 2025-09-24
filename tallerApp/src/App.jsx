@@ -1,4 +1,5 @@
 import Routing from './routes/Routing.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 

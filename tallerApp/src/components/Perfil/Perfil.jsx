@@ -107,11 +107,6 @@ function Perfil() {
         ← Volver
       </button>
 
-      <button className="btnVolverIcono" onClick={() => navigate('/home')} title="Volver al Home">
-        ←
-      </button>
-
-
       <div className="perfilFormulario">
         <label>Cédula</label>
         <input
