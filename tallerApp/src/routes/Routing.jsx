@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import Home from '../pages/Home'
 import LogIn from '../pages/LogIn'
 import Nosotros from '../pages/Nosotros'
@@ -12,6 +12,7 @@ function Routing() {
     <div>
         <Router>
             <Routes>
+                <Route path='/' element={<Navigate to='/home' />}/>
                 <Route path='/home' element = {<Home/>}/>
                 <Route path='/login' element = {<LogIn/>}/>
                 <Route path='/cuenta' element = {<CuentaProtegida/>}/>

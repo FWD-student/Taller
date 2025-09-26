@@ -1,0 +1,209 @@
+.panelAdmin {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.headerAdmin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.headerAdmin h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.accionesHeader button {
+  margin-left: 10px;
+}
+
+.btnSecundario, .btnCerrarSesion {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSecundario {
+  background: #3498db;
+  color: white;
+}
+
+.btnSecundario:hover {
+  background: #2980b9;
+}
+
+.btnCerrarSesion {
+  background: #e74c3c;
+  color: white;
+}
+
+.btnCerrarSesion:hover {
+  background: #c0392b;
+}
+
+.navAdmin {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.navAdmin button {
+  flex: 1;
+  background: #ecf0f1;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.navAdmin button:hover {
+  background: #dfe6e9;
+}
+
+.navAdmin .activo {
+  background: #e74c3c;
+  color: white;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+}
+
+.estadisticasAdmin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.estatCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.estatCard:hover {
+  transform: scale(1.05);
+}
+
+.estatCard h3 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.estatCard p {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.filtrosAdmin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filtroSelect {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #bdc3c7;
+}
+
+.listaCitas, .listaComentarios {
+  display: grid;
+  gap: 15px;
+}
+
+.tarjetaCitaAdmin, .tarjetaComentarioAdmin {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.infoCitaAdmin, .infoComentarioAdmin {
+  flex: 1;
+}
+
+.infoCitaAdmin h4, .infoComentarioAdmin h4 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.estadoBadge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.estadoBadge.pendiente {
+  background: #f39c12;
+  color: white;
+}
+
+.estadoBadge.completada {
+  background: #27ae60;
+  color: white;
+}
+
+.estadoBadge.finalizada {
+  background: #8e44ad;
+  color: white;
+}
+
+.accionesCita, .accionesComentario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accionesCita select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btnEliminar {
+  background: #e74c3c;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btnEliminar:hover {
+  background: #c0392b;
+}
+
+.comentarioTexto {
+  background: #f4f6f7;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-style: italic;
+  color: #2c3e50;
+}

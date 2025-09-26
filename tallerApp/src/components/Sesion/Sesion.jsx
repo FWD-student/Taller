@@ -13,6 +13,11 @@ const Sesion = () => {
     cedula: '', nombre: '', telefono: '', email: '', password: ''
   });
 
+  const ADMIN_CREDENTIALS = {
+    usuario: 'admin@tallerjpl.com',
+    password: 'admin123'
+  };
+
   const handleChange = (e, setForm, sanitize = null) => {
     const { name, value } = e.target;
     const nuevoValor = sanitize ? sanitize(value) : value;
@@ -31,6 +36,28 @@ const Sesion = () => {
       return mostrarAlerta('warning', 'Campos incompletos', 'Por favor completa todos los campos');
     }
 
+    if (formLogin.usuario === ADMIN_CREDENTIALS.usuario && 
+        formLogin.password === ADMIN_CREDENTIALS.password) {
+      
+      sessionStorage.setItem('usuario', JSON.stringify({
+        id: 'admin',
+        nombre: 'Administrador',
+        email: 'admin@tallerjpl.com',
+        esAdmin: true
+      }));
+
+      await Swal.fire({
+        icon: 'success',
+        title: '¡Bienvenido Administrador!',
+        text: 'Acceso al panel de administración',
+        confirmButtonColor: '#e74c3c',
+        timer: 1500
+      });
+
+      navigate('/admin');
+      return;
+    }
+
     try {
       const usuarios = await ServicesUsers.getUsuarios();
       const usuario = usuarios.find(u =>
@@ -47,7 +74,8 @@ const Sesion = () => {
         nombre: usuario.nombre,
         email: usuario.email,
         cedula: usuario.cedula,
-        telefono: usuario.telefono
+        telefono: usuario.telefono,
+        esAdmin: false
       }));
 
       await Swal.fire({
@@ -133,6 +161,10 @@ const Sesion = () => {
             </div>
 
             <button type="submit" className='btnPrincipal'>Iniciar Sesión</button>
+
+            <div className='infoAdmin'>
+              <small>Admin: admin@tallerjpl.com | Contraseña: admin123</small>
+            </div>
 
             <p className='enlaceCambio'>
               ¿No tienes cuenta?

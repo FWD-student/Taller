@@ -1,0 +1,114 @@
+/* Carrusel de mecánica - Estilos específicos */
+.contenedorMecanica {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #e74c3c;
+  height: fit-content;
+}
+
+.tituloMecanica {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.contenedorMecanica .carousel {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.imgMecanic {
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(0.8);
+  transition: 0.3s ease;
+}
+
+.contenedorMecanica .carousel-item:hover .imgMecanic {
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+.contenedorMecanica .carousel-caption {
+  background: rgba(44, 62, 80, 0.85);
+  padding: 20px;
+  border-radius: 6px;
+  bottom: 20px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 80%;
+}
+
+.contenedorMecanica .carousel-caption h2 {
+  color: #ecf0f1;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.contenedorMecanica .carousel-control-prev,
+.contenedorMecanica .carousel-control-next {
+  width: 5%;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.contenedorMecanica .carousel-control-prev:hover,
+.contenedorMecanica .carousel-control-next:hover {
+  opacity: 1;
+}
+
+.contenedorMecanica .carousel-control-prev-icon,
+.contenedorMecanica .carousel-control-next-icon {
+  background-color: #e74c3c;
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.contenedorMecanica .carousel-indicators [data-bs-target] {
+  background-color: #e74c3c;
+  border: 2px solid white;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contenedorMecanica {
+    padding: 20px;
+  }
+  
+  .imgMecanic {
+    height: 300px;
+  }
+  
+  .carousel-caption h2 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tituloMecanica {
+    font-size: 20px;
+  }
+  
+  .imgMecanic {
+    height: 250px;
+  }
+  
+  .carousel-caption {
+    padding: 15px;
+    width: 90%;
+  }
+  
+  .carousel-caption h2 {
+    font-size: 16px;
+  }
+}

@@ -1,14 +1,14 @@
 import React from 'react'
 import Header from '../components/Header/Header'
-import Form from '../components/Form/Form'
 import Footer from '../components/Footer/Footer'
 import Marcas from '../components/Marcas/Marcas'
+import CompoDual from '../components/ComponenteDual/CompoDual'
 
 function Home() {
   return (
     <div>
         <Header/>
-        <Form/>
+        <CompoDual/>
         <Marcas/>
         <Footer/>
     </div>

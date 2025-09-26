@@ -1,0 +1,181 @@
+/* Estilos para ComentariosUsers */
+.comentariosContainer {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.comentariosForm {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #e74c3c;
+}
+
+.comentariosForm h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.comentariosForm p {
+  color: #34495e;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.infoCitas {
+  background-color: #ecf0f1;
+  padding: 10px;
+  border-radius: 6px;
+  color: #2c3e50;
+  font-weight: 500;
+  border-left: 3px solid #e74c3c;
+}
+
+.grupoComentario {
+  margin: 25px 0;
+}
+
+.grupoComentario label {
+  display: block;
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.grupoComentario textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.grupoComentario textarea:focus {
+  outline: none;
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.grupoComentario textarea::placeholder {
+  color: #95a5a6;
+}
+
+.contadorCaracteres {
+  display: block;
+  text-align: right;
+  color: #7f8c8d;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.botonesComentario {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.btnEnviarComentario,
+.btnLimpiarComentario {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.btnEnviarComentario {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btnEnviarComentario:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+.btnLimpiarComentario {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btnLimpiarComentario:hover {
+  background-color: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+.mensajeAcceso,
+.mensajeRestriccion {
+  background: white;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #95a5a6;
+}
+
+.mensajeAcceso h3,
+.mensajeRestriccion h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.mensajeAcceso p,
+.mensajeRestriccion p {
+  color: #7f8c8d;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .comentariosContainer {
+    margin: 20px;
+    padding: 15px;
+  }
+  
+  .comentariosForm {
+    padding: 20px;
+  }
+  
+  .comentariosForm h3 {
+    font-size: 20px;
+  }
+  
+  .botonesComentario {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btnEnviarComentario,
+  .btnLimpiarComentario {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grupoComentario textarea {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .btnEnviarComentario,
+  .btnLimpiarComentario {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}

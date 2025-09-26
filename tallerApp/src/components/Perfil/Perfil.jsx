@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ServicesUsers from '../../services/ServicesUsers';
+import ServiceCitas from '../../services/ServicesCitas';
 import Swal from 'sweetalert2';
 import '../Perfil/perfil.css';
 
@@ -8,6 +9,8 @@ function Perfil() {
   const [usuario, setUsuario] = useState(null);
   const [form, setForm] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
+  const [puedeComentear, setPuedeComentear] = useState(false);
+  const [citasCompletadas, setCitasCompletadas] = useState(0);
 
   const navigate = useNavigate();
 
@@ -25,6 +28,7 @@ function Perfil() {
 
     const { id } = JSON.parse(usuarioGuardado);
     cargarDatosUsuario(id);
+    verificarCitasCompletadas(JSON.parse(usuarioGuardado));
   }, []);
 
   const cargarDatosUsuario = async (id) => {
@@ -45,6 +49,21 @@ function Perfil() {
     }
   };
 
+  const verificarCitasCompletadas = async (datosUsuario) => {
+    try {
+      const todasLasCitas = await ServiceCitas.getCitas();
+      const citasDelUsuario = todasLasCitas.filter(cita => 
+        cita.email === datosUsuario.email && 
+        (cita.estado === 'completada' || cita.estado === 'finalizada')
+      );
+      
+      setCitasCompletadas(citasDelUsuario.length);
+      setPuedeComentear(citasDelUsuario.length > 0);
+    } catch (error) {
+      console.error('Error al verificar citas:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -61,8 +80,7 @@ function Perfil() {
     setForm(prev => ({ ...prev, [name]: nuevoValor }));
   };
 
-
- const guardarCambios = async () => {
+  const guardarCambios = async () => {
     if (!form) return;
 
     if (form.cedula.length < 9 || form.telefono.length < 8) {
@@ -97,6 +115,11 @@ function Perfil() {
     }
   };
 
+  // modificarlo
+  const irAComentarios = () => {
+    navigate('/comentarios');
+  };
+
   if (!form) return null;
 
   return (
@@ -119,7 +142,6 @@ function Perfil() {
           disabled={!modoEdicion}
         />
 
-
         <label>Nombre</label>
         <input
           type="text"
@@ -139,8 +161,6 @@ function Perfil() {
           pattern="[0-9]*"
           disabled={!modoEdicion}
         />
-
-
 
         <label>Email</label>
         <input
@@ -164,6 +184,24 @@ function Perfil() {
             <button className="btnEditar" onClick={() => setModoEdicion(true)}>Editar</button>
           )}
         </div>
+      </div>
+
+      <div className="seccionComentarios">
+        <h3>Comparte tu experiencia</h3>
+        {puedeComentear ? (
+          <div className="comentariosHabilitados">
+            <p>Has completado <strong>{citasCompletadas}</strong> servicio{citasCompletadas !== 1 ? 's' : ''} con nosotros.</p>
+            <p>¡Nos encantaría conocer tu opinión!</p>
+            <button className="btnComentarios" onClick={irAComentarios}>
+              Escribir Comentario
+            </button>
+          </div>
+        ) : (
+          <div className="comentariosDeshabilitados">
+            <p>Para poder comentar, necesitas haber completado al menos un servicio con nosotros.</p>
+            <p>Una vez que tu cita sea finalizada, podrás compartir tu experiencia.</p>
+          </div>
+        )}
       </div>
     </div>
   );
