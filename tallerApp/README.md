@@ -14,3 +14,9 @@ Espero agregar mas cosas a mi home y rutas, tengo una duda de como organizar mis
 
 Dia tres (24-09-2025)
 El dia de ayer hice avances, mas que nada por la noche, y pues estoy trabajando con repos, porque el pc de clases se infecto del malware y para aislarme he decidido hacerlo de esta manera, ayer hice lo del login, sesionstorage, carrusel, autollenado en caso de haber una sesion abierta, en clases estoy trabajando las demas rutas y pequeñas correccion y depurando ideas con el profe, por ahora no hay pegas o estancamiento.
+
+Dia cuatro y cinco (25-09-2025/26-09-2025)
+Trabaje en arrglar la seccion de carrusel y la implementacion del panel admin, se me complico pero he usado secciones de codigo viejo o sea de trabajos viejos. No pude hacer correctamente el status porque, tenia divido el proyetco, es decir aca en la casa subo lo que hago acá y en clases aparte, para no tener problemas de malware
+
+Dia seis (29-09-2025)
+Hoy trabajare en la conclusion del contacteme y terminar con lo del service 

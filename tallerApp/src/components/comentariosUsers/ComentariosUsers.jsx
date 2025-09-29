@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ServiceCitas from '../../services/ServicesCitas';
 import ServiceComentsUsers from '../../services/ServicesComentsUsers';
 import Swal from 'sweetalert2';
-import '../comentariosUsers/comentariosUsers.css';
+import './comentariosUsers.css';
 
 function ComentariosUsers() {
   const [comentario, setComentario] = useState('');
@@ -27,7 +27,7 @@ function ComentariosUsers() {
     try {
       const todasLasCitas = await ServiceCitas.getCitas();
       
-      // Filtrar citas del usuario que estén completadas/finalizadas
+      
       const citasDelUsuario = todasLasCitas.filter(cita => 
         cita.email === datosUsuario.email && 
         (cita.estado === 'completada' || cita.estado === 'finalizada')
