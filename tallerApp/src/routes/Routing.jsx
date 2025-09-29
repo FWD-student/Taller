@@ -5,7 +5,9 @@ import LogIn from '../pages/LogIn'
 import Nosotros from '../pages/Nosotros'
 import Servicios from '../pages/Servicios'
 import Contacto from '../pages/Contacto'
-import CuentaProtegida from './PrivateRoute'
+import Admin from '../pages/Admin'
+import Cuenta from '../pages/Cuenta'
+import PrivateRoute from './PrivateRoute'
 
 function Routing() {
   return (
@@ -15,7 +17,8 @@ function Routing() {
                 <Route path='/' element={<Navigate to='/home' />}/>
                 <Route path='/home' element = {<Home/>}/>
                 <Route path='/login' element = {<LogIn/>}/>
-                <Route path='/cuenta' element = {<CuentaProtegida/>}/>
+                <Route path='/admin' element = {<PrivateRoute>{<Admin/>}</PrivateRoute>}/>
+                <Route path='/cuenta' element = {<PrivateRoute>{<Cuenta/>}</PrivateRoute>}/>
                 <Route path='/nosotros' element = {<Nosotros/>}/>
                 <Route path='/servicios' element = {<Servicios/>}/>
                 <Route path='/contacto' element = {<Contacto/>}/>

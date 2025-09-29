@@ -1,22 +1,22 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
-import Cuenta from '../pages/Cuenta'
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
-  const isAuthenticated = () => {
-    const usuario = sessionStorage.getItem('usuario')
-    return usuario !== null
+  const location = useLocation();
+  const usuario = JSON.parse(sessionStorage.getItem('usuario') || 'null');
+
+  if (!usuario) return <Navigate to="/login" replace />;
+
+
+  if (location.pathname === '/admin' && !usuario.esAdmin) {
+    return <Navigate to="/cuenta" replace />;
   }
 
-  return isAuthenticated() ? children : <Navigate to="/login" replace />
-}
+  if (location.pathname === '/cuenta' && usuario.esAdmin) {
+    return <Navigate to="/admin" replace />;
+  }
 
-const CuentaProtegida = () => {
-  return (
-    <PrivateRoute>
-      <Cuenta />
-    </PrivateRoute>
-  )
-}
+  return children;
+};
 
-export default CuentaProtegida
+export default PrivateRoute;

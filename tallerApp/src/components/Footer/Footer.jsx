@@ -6,9 +6,13 @@ import icoW from '../../image/icons/wats.png'
 import icoY from '../../image/icons/yt.png'
 
 function Footer() {
+
+  const mensaje = "Hola%20necesito%20informacion%20de%20"
+  const numero = "63480444"
+
   const redesSociales = [
     { nombre: 'Facebook', url: 'https://facebook.com', img: icoF },
-    { nombre: 'WhatsApp', url: 'https://wa.me/63480444', img: icoW },
+    { nombre: 'WhatsApp', url: `https://wa.me/${numero}?text=${mensaje}`, img: icoW },
     { nombre: 'Instagram', url: 'https://www.instagram.com/__luis_9m/', img: icoI },
     { nombre: 'YouTube', url: 'https://youtube.com', img: icoY }
   ];

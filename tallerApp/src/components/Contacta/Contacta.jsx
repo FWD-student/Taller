@@ -1,5 +1,8 @@
 import React from 'react'
 import './contacta.css'
+import cotizar from '../../image/iconsContacto/cotizar.png'
+import email from '../../image/iconsContacto/email.png'
+import telefono from '../../image/iconsContacto/telefono.png'
 
 function Comentarios() {
   return (
@@ -7,21 +10,23 @@ function Comentarios() {
 
         <h1>Contactenos</h1>
 
-        <div className='contenedor simple'>
-            <div>
+        <div className='contenedorSimple'>
+            <div className='item'>
                 <h3>Correo</h3>
-                <img src="" alt="insertar icono" />
+                <a href="mailto:luisblocon15@gmail.com"><img className='mail' src= {email} alt="icono" /></a>
                 <p>luisblocon15@gmail.com</p>
             </div>
             
-            <div>
+            <div className='item'>
                 <h3>Telefono</h3>
-                <img src="" alt="lo mismo icono" />
+                <a href="tel:+506 6348-0444"><img className='tele' src= {telefono} alt="icono" /></a>
                 <p>+506 6348-0444</p>
             </div>
 
-            <div>
-                <h3></h3>
+            <div className='item'>
+                <h3>Cotizacion</h3>
+                <a href="2663 6363"><img className='coti' src={cotizar} alt="icono" /></a>
+                <p>2663 6363</p>
             </div>
         </div>
         

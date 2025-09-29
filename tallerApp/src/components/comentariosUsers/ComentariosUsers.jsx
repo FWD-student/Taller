@@ -27,7 +27,6 @@ function ComentariosUsers() {
     try {
       const todasLasCitas = await ServiceCitas.getCitas();
       
-      
       const citasDelUsuario = todasLasCitas.filter(cita => 
         cita.email === datosUsuario.email && 
         (cita.estado === 'completada' || cita.estado === 'finalizada')

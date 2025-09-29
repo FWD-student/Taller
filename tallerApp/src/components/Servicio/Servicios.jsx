@@ -15,7 +15,6 @@ function Servicios() {
     imagen: ""
   });
 
-  // ---- Helpers ----
   const mostrarAlerta = (icon, title, text) =>
     Swal.fire({ icon, title, text, confirmButtonColor: "#e74c3c" });
 
@@ -39,7 +38,6 @@ function Servicios() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ---- Cargar ----
   useEffect(() => {
     cargarServicios();
   }, []);
@@ -53,7 +51,6 @@ function Servicios() {
     }
   };
 
-  // ---- Guardar ----
   const guardarServicio = async (e) => {
     e.preventDefault();
     if (!form.nombre || !form.descripcion || !form.precio) {
@@ -78,7 +75,6 @@ function Servicios() {
     }
   };
 
-  // ---- Eliminar ----
   const eliminarServicio = async (id) => {
     const { isConfirmed } = await Swal.fire({
       title: "¿Eliminar servicio?",
