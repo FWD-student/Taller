@@ -188,7 +188,9 @@
   transition: background-color 0.2s ease;
 }
 .opcionMenu:hover {
-  background-color: #f8f9fa;
+  background-color: #3498db;
+  color: white;
+  border-radius: var(--border-radius);
 }
 .opcionMenu.cerrarSesion {
   color: white;

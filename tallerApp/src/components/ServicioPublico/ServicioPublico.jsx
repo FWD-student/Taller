@@ -75,7 +75,7 @@ function ServicioPublico() {
         <h2>Nuestros Servicios</h2>
         <p>Ofrecemos servicios de calidad para tu motocicleta</p>
         {!usuario && (
-          <p className="mensajeRegistro">
+          <p className="mensajeRegistro" onClick={() => navigate("/login")} style={{ cursor: 'pointer' }}>
             ¡Regístrate para aprovechar nuestras promociones especiales!
           </p>
         )}

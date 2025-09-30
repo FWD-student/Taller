@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import ServiciosService from "../../services/ServiciosServices";
+import ServicesHistorial from "../../services/ServicesHistorial";
 import "./servicioAdmin.css";
 
 function ServicioAdmin() {
@@ -60,13 +61,17 @@ function ServicioAdmin() {
 
     try {
       if (editando) {
-        await ServiciosService.updateServicios(editando.id, form);
+        const servicioActualizado = await ServiciosService.updateServicios(editando.id, form);
+        await ServicesHistorial.createServicioHistorial(servicioActualizado, "modificado");
+
         setServicios((prev) =>
           prev.map((s) => (s.id === editando.id ? { ...s, ...form } : s))
         );
         mostrarAlerta("success", "Actualizado", "Servicio actualizado correctamente");
       } else {
         const nuevo = await ServiciosService.createServicios(form);
+        await ServicesHistorial.createServicioHistorial(nuevo, "creado");
+
         setServicios((prev) => [...prev, nuevo]);
         mostrarAlerta("success", "Creado", "Servicio agregado correctamente");
       }
@@ -91,7 +96,10 @@ function ServicioAdmin() {
     if (!isConfirmed) return;
 
     try {
+      const servicioAEliminar = servicios.find(s => s.id === id);
       await ServiciosService.deleteServicios(id);
+      await ServicesHistorial.createServicioHistorial(servicioAEliminar, "eliminado");
+
       setServicios((prev) => prev.filter((s) => s.id !== id));
       mostrarAlerta("success", "Eliminado", "Servicio eliminado correctamente");
     } catch {

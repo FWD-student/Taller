@@ -1,34 +1,21 @@
 {
   "citas": [
     {
-      "id": "dd4c",
-      "nombre": "luis",
-      "email": "hola@gmail.com",
-      "telefono": "232131232",
-      "servicio": "mantenimiento",
-      "fecha": "2025-10-03",
-      "hora": "",
-      "mensaje": "sdfsdf",
-      "fechaCreacion": "2025-09-30T04:52:11.849Z",
-      "estado": "finalizada",
-      "userId": "37d5",
-      "codigoConfirmacion": "CITA-63DNK95E5"
-    },
-    {
-      "id": "dee2",
-      "nombre": "luis",
+      "id": "84e1",
+      "nombre": "luis KK",
       "email": "hola@gmail.com",
       "telefono": "232131232",
       "servicio": "revision",
-      "fecha": "2025-10-03",
-      "hora": "10:30",
-      "mensaje": "asdas",
-      "fechaCreacion": "2025-09-30T05:28:15.697Z",
-      "estado": "finalizada",
+      "fecha": "2025-10-01",
+      "hora": "15:30",
+      "mensaje": "ME FALLA LA MEMORIA",
+      "fechaCreacion": "2025-09-30T13:39:25.351Z",
+      "estado": "pendiente",
       "userId": "37d5",
-      "codigoConfirmacion": "CITA-84RHD8JXU"
+      "codigoConfirmacion": "CITA-DSEQOSZEC"
     }
   ],
+  "citasHistorial": [],
   "usuarios": [
     {
       "id": "37d5",
@@ -37,8 +24,25 @@
       "telefono": "632131232",
       "email": "hola@gmail.com",
       "password": "123"
+    },
+    {
+      "id": "2a25",
+      "cedula": "6666666666",
+      "nombre": "krilin",
+      "telefono": "6666666666",
+      "email": "fiworoh687@mv6a.com",
+      "password": "1234qwer"
+    },
+    {
+      "id": "39ee",
+      "cedula": "1212121211",
+      "nombre": "qk",
+      "telefono": "8888888888",
+      "email": "aaqrc4277h@cmhvzylmfc.com",
+      "password": "4321rewq"
     }
   ],
+  "usuariosHistorial": [],
   "comentsUsers": [
     {
       "id": "2219",
@@ -48,20 +52,34 @@
       "comentario": "una autentica mierda",
       "rating": 3,
       "fechaComentario": "2025-09-30T05:13:37.150Z",
-      "citaId": "dd4c",
+      "citaId": null,
       "servicioNombre": "mantenimiento",
+      "moderado": true
+    },
+    {
+      "id": "fafd",
+      "usuarioId": "37d5",
+      "nombreUsuario": "luis",
+      "emailUsuario": "hola@gmail.com",
+      "comentario": "HOLAL",
+      "rating": 5,
+      "fechaComentario": "2025-09-30T13:38:43.303Z",
+      "citaId": null,
+      "servicioNombre": "revision",
       "moderado": true
     }
   ],
+  "comentariosHistorial": [],
   "servicios": [
     {
       "id": "a7c4",
-      "nombre": "hola",
-      "descripcion": "testeo hola",
+      "nombre": "Cambio de aceite",
+      "descripcion": "El cambio de aceite incluye el reemplazo del mismo y cambio de filtro de aceite para las motos que lo posean",
       "precio": "5000",
-      "duracion": "35",
+      "duracion": "3",
       "imagen": "https://tse2.mm.bing.net/th/id/OIP.u6498QlmtocILDnKN4QvkwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
       "tipo": "comun"
     }
-  ]
+  ],
+  "serviciosHistorial": []
 }

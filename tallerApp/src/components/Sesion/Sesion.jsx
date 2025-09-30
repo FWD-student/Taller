@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ServicesUsers from '../../services/ServicesUsers';
+import EmailService from '../../services/EmailService';
 import Swal from 'sweetalert2';
 import './sesion.css';
 
@@ -12,6 +13,11 @@ const Sesion = () => {
   const [formRegistro, setFormRegistro] = useState({
     cedula: '', nombre: '', telefono: '', email: '', password: ''
   });
+
+  const [verificacionPendiente, setVerificacionPendiente] = useState(false);
+  const [codigoGenerado, setCodigoGenerado] = useState('');
+  const [codigoIngresado, setCodigoIngresado] = useState('');
+  const [tiempoExpiracion, setTiempoExpiracion] = useState(null);
 
   const ADMIN_CREDENTIALS = {
     usuario: 'admin@tallerjpl.com',
@@ -93,6 +99,10 @@ const Sesion = () => {
     }
   };
 
+  const generarCodigoVerificacion = () => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  };
+
   const handleRegistro = async (e) => {
     e.preventDefault();
     if (!validarCampos(formRegistro)) {
@@ -124,19 +134,73 @@ const Sesion = () => {
         return mostrarAlerta('warning', 'Teléfono en uso', 'Este número de teléfono ya ha sido registrado el máximo de veces permitidas');
       }
 
-      await ServicesUsers.createUsuarios(formRegistro);
+      // Generar código de verificación
+      const codigo = generarCodigoVerificacion();
+      setCodigoGenerado(codigo);
+      setTiempoExpiracion(Date.now() + 10 * 60 * 1000); // 10 minutos
+
+      // Enviar email con código
+      await EmailService.emailCodigoVerificacion(formRegistro.email, codigo, formRegistro.nombre);
+
       await Swal.fire({
-        icon: 'success',
-        title: '¡Cuenta creada!',
-        text: 'Tu cuenta ha sido registrada correctamente',
+        icon: 'info',
+        title: 'Verifica tu correo',
+        text: 'Hemos enviado un código de verificación a tu email',
         confirmButtonColor: '#e74c3c'
       });
 
+      setVerificacionPendiente(true);
+    } catch {
+      mostrarAlerta('error', 'Error al enviar código', 'No se pudo enviar el código de verificación. Intenta de nuevo.');
+    }
+  };
+
+  const verificarCodigo = async () => {
+    if (!codigoIngresado.trim()) {
+      return mostrarAlerta('warning', 'Código requerido', 'Ingresa el código que recibiste por email');
+    }
+
+    if (Date.now() > tiempoExpiracion) {
+      setVerificacionPendiente(false);
+      setCodigoIngresado('');
+      return mostrarAlerta('error', 'Código expirado', 'El código ha expirado. Intenta registrarte nuevamente.');
+    }
+
+    if (codigoIngresado !== codigoGenerado) {
+      return mostrarAlerta('error', 'Código incorrecto', 'El código ingresado no es válido');
+    }
+
+    try {
+      // Crear usuario
+      const nuevoUsuario = await ServicesUsers.createUsuarios(formRegistro);
+
+      // Enviar email de bienvenida
+      await EmailService.emailRegistroUsuario(nuevoUsuario);
+
+      await Swal.fire({
+        icon: 'success',
+        title: '¡Cuenta creada!',
+        text: 'Tu cuenta ha sido verificada y creada exitosamente',
+        confirmButtonColor: '#e74c3c'
+      });
+
+      // Resetear estados
+      setVerificacionPendiente(false);
+      setCodigoIngresado('');
+      setCodigoGenerado('');
+      setTiempoExpiracion(null);
       setTipoForm('login');
       setFormRegistro({ cedula: '', nombre: '', telefono: '', email: '', password: '' });
     } catch {
-      mostrarAlerta('error', 'Error al registrar', 'No se pudo crear la cuenta. Intenta de nuevo.');
+      mostrarAlerta('error', 'Error al crear cuenta', 'No se pudo crear la cuenta. Intenta de nuevo.');
     }
+  };
+
+  const cancelarVerificacion = () => {
+    setVerificacionPendiente(false);
+    setCodigoIngresado('');
+    setCodigoGenerado('');
+    setTiempoExpiracion(null);
   };
 
   return (
@@ -196,6 +260,36 @@ const Sesion = () => {
               <span onClick={() => setTipoForm('registro')}> Regístrate aquí</span>
             </p>
           </form>
+        ) : verificacionPendiente ? (
+          <div className='formSesion'>
+            <h2>Verificación de Correo</h2>
+            <p className='subtitulo'>Ingresa el código que enviamos a {formRegistro.email}</p>
+
+            <div className='grupoInput'>
+              <label htmlFor="codigo">Código de Verificación</label>
+              <input
+                type="text"
+                id="codigo"
+                name="codigo"
+                placeholder="Ingresa el código de 6 dígitos"
+                value={codigoIngresado}
+                onChange={e => setCodigoIngresado(e.target.value.replace(/\D/g, ''))}
+                maxLength="6"
+                style={{ fontSize: '18px', letterSpacing: '5px', textAlign: 'center' }}
+                autoFocus
+              />
+            </div>
+
+            <p className='textoAyuda'>El código expira en 10 minutos. Revisa tu bandeja de entrada o spam.</p>
+
+            <button type="button" onClick={verificarCodigo} className='btnSecundario'>
+              Verificar Código
+            </button>
+
+            <button type="button" onClick={cancelarVerificacion} className='btnPrincipal'>
+              Cancelar
+            </button>
+          </div>
         ) : (
           <form className='formSesion' onSubmit={handleRegistro}>
             <h2>Crear cuenta nueva</h2>

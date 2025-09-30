@@ -1,0 +1,333 @@
+.conocenosContainer {
+  width: 100%;
+  background: #f8f9fa;
+}
+
+.bannerConocenos {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  margin-bottom: 60px;
+}
+
+.bannerConocenos h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #e74c3c;
+}
+
+.bannerConocenos p {
+  font-size: 20px;
+  color: #ecf0f1;
+  margin: 0;
+  font-weight: 300;
+}
+
+.seccionContenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.bloqueInfo {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 80px;
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bloqueInfo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.bloqueInfo.reverse {
+  flex-direction: row-reverse;
+}
+
+.textoInfo {
+  flex: 1;
+}
+
+.textoInfo h2 {
+  color: #2c3e50;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.textoInfo h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 4px;
+  background: #e74c3c;
+  border-radius: 2px;
+}
+
+.textoInfo p {
+  color: #7f8c8d;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.imagenInfo {
+  flex: 1;
+  min-width: 300px;
+}
+
+.imagenInfo img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.imagenInfo img:hover {
+  transform: scale(1.05);
+}
+
+.seccionValores {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.seccionValores h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.seccionValores h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -15px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #e74c3c;
+  border-radius: 2px;
+}
+
+.gridValores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.cardValor {
+  background: #f8f9fa;
+  padding: 35px 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.cardValor:hover {
+  transform: translateY(-8px);
+  border-color: #e74c3c;
+  box-shadow: 0 8px 20px rgba(231, 76, 60, 0.15);
+}
+
+.iconoValor {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.cardValor h3 {
+  color: #2c3e50;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+}
+
+.cardValor p {
+  color: #7f8c8d;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.seccionEquipo {
+  max-width: 1200px;
+  margin: 80px auto 60px;
+  padding: 0 20px;
+}
+
+.seccionEquipo h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.seccionEquipo h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -15px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #e74c3c;
+  border-radius: 2px;
+}
+
+.descripcionEquipo {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 40px auto 40px;
+}
+
+.imagenEquipo {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.imagenEquipo img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .bannerConocenos {
+    padding: 50px 20px;
+  }
+
+  .bannerConocenos h1 {
+    font-size: 32px;
+  }
+
+  .bannerConocenos p {
+    font-size: 16px;
+  }
+
+  .bloqueInfo {
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+
+  .bloqueInfo.reverse {
+    flex-direction: column;
+  }
+
+  .textoInfo h2 {
+    font-size: 26px;
+  }
+
+  .textoInfo p {
+    font-size: 15px;
+  }
+
+  .imagenInfo {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .imagenInfo img {
+    height: 250px;
+  }
+
+  .seccionValores {
+    margin: 40px auto;
+    padding: 40px 20px;
+  }
+
+  .seccionValores h2 {
+    font-size: 28px;
+  }
+
+  .gridValores {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .seccionEquipo h2 {
+    font-size: 28px;
+  }
+
+  .descripcionEquipo {
+    font-size: 16px;
+  }
+
+  .imagenEquipo img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerConocenos h1 {
+    font-size: 28px;
+  }
+
+  .bannerConocenos p {
+    font-size: 14px;
+  }
+
+  .bloqueInfo {
+    padding: 20px 15px;
+  }
+
+  .textoInfo h2 {
+    font-size: 22px;
+  }
+
+  .textoInfo p {
+    font-size: 14px;
+  }
+
+  .imagenInfo img {
+    height: 200px;
+  }
+
+  .cardValor {
+    padding: 25px 20px;
+  }
+
+  .iconoValor {
+    font-size: 40px;
+  }
+
+  .cardValor h3 {
+    font-size: 20px;
+  }
+
+  .imagenEquipo img {
+    height: 220px;
+  }
+}

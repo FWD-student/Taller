@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ServiceCitas from '../../services/ServicesCitas';
 import ServicesComents from '../../services/ServicesComents';
+import ServicesHistorial from '../../services/ServicesHistorial';
 import ModerationService from '../../services/ModerationService';
 import Swal from 'sweetalert2';
 import './comentariosUsers.css';
@@ -126,7 +127,8 @@ function ComentariosUsers() {
         moderado: true
       };
 
-      await ServicesComents.createComentsUsers(nuevoComentario);
+      const comentarioCreado = await ServicesComents.createComentsUsers(nuevoComentario);
+      await ServicesHistorial.createComentarioHistorial(comentarioCreado, "creado");
 
       setComentario('');
       setRating(0);

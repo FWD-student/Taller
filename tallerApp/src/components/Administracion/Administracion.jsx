@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ServiceCitas from "../../services/ServicesCitas";
 import ServiceComentsUsers from "../../services/ServicesComents";
 import ServicesUsers from "../../services/ServicesUsers";
+import ServicesHistorial from "../../services/ServicesHistorial";
+import EmailService from "../../services/EmailService";
 import Swal from "sweetalert2";
 import ServicioAdmin from "../ServicioAdmin/ServicioAdmin";
 import "./Administracion.css";
@@ -18,6 +20,9 @@ function PanelAdmin() {
   const [formUsuario, setFormUsuario] = useState({
     cedula: "", nombre: "", telefono: "", email: "", password: ""
   });
+  const [modalHistorial, setModalHistorial] = useState(false);
+  const [tipoHistorial, setTipoHistorial] = useState("");
+  const [datosHistorial, setDatosHistorial] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,7 +60,12 @@ function PanelAdmin() {
 
   const cambiarEstadoCita = async (id, nuevoEstado) => {
     try {
-      await ServiceCitas.updateCitas(id, { estado: nuevoEstado });
+      const citaActualizada = await ServiceCitas.updateCitas(id, { estado: nuevoEstado });
+      await ServicesHistorial.createCitaHistorial(citaActualizada, "modificado");
+
+      // Enviar email de cambio de estado
+      await EmailService.emailCambioEstadoCita(citaActualizada, nuevoEstado);
+
       setCitas((prevCitas) =>
         prevCitas.map((cita) =>
           cita.id === id ? { ...cita, estado: nuevoEstado } : cita
@@ -86,7 +96,10 @@ function PanelAdmin() {
 
     if (resultado.isConfirmed) {
       try {
+        const citaAEliminar = citas.find(c => c.id === id);
         await ServiceCitas.deleteCitas(id);
+        await ServicesHistorial.createCitaHistorial(citaAEliminar, "eliminado");
+
         setCitas((prevCitas) => prevCitas.filter((cita) => cita.id !== id));
         mostrarAlerta(
           "success",
@@ -113,7 +126,10 @@ function PanelAdmin() {
 
     if (resultado.isConfirmed) {
       try {
+        const comentarioAEliminar = comentarios.find(c => c.id === id);
         await ServiceComentsUsers.deleteComentsUsers(id);
+        await ServicesHistorial.createComentarioHistorial(comentarioAEliminar, "eliminado");
+
         setComentarios((prevComentarios) =>
           prevComentarios.filter((com) => com.id !== id)
         );
@@ -148,6 +164,40 @@ function PanelAdmin() {
     navigate("/home");
   };
 
+  const abrirModalHistorial = async (tipo) => {
+    try {
+      let historial = [];
+      switch(tipo) {
+        case "citas":
+          historial = await ServicesHistorial.getCitasHistorial();
+          break;
+        case "usuarios":
+          historial = await ServicesHistorial.getUsuariosHistorial();
+          break;
+        case "servicios":
+          historial = await ServicesHistorial.getServiciosHistorial();
+          break;
+        case "comentarios":
+          historial = await ServicesHistorial.getComentariosHistorial();
+          break;
+        default:
+          break;
+      }
+      setDatosHistorial(historial);
+      setTipoHistorial(tipo);
+      setModalHistorial(true);
+    } catch (error) {
+      console.error("Error al cargar historial:", error);
+      mostrarAlerta("error", "Error", "No se pudo cargar el historial");
+    }
+  };
+
+  const cerrarModalHistorial = () => {
+    setModalHistorial(false);
+    setTipoHistorial("");
+    setDatosHistorial([]);
+  };
+
   const abrirModalUsuario = (usuario = null) => {
     setUsuarioEditando(usuario);
     setFormUsuario(usuario || { cedula: "", nombre: "", telefono: "", email: "", password: "" });
@@ -173,13 +223,17 @@ function PanelAdmin() {
 
     try {
       if (usuarioEditando) {
-        await ServicesUsers.updateUsuarios(usuarioEditando.id, formUsuario);
+        const usuarioActualizado = await ServicesUsers.updateUsuarios(usuarioEditando.id, formUsuario);
+        await ServicesHistorial.createUsuarioHistorial(usuarioActualizado, "modificado");
+
         setUsuarios((prev) =>
           prev.map((u) => (u.id === usuarioEditando.id ? { ...u, ...formUsuario } : u))
         );
         mostrarAlerta("success", "Actualizado", "Usuario actualizado correctamente");
       } else {
         const nuevo = await ServicesUsers.createUsuarios(formUsuario);
+        await ServicesHistorial.createUsuarioHistorial(nuevo, "creado");
+
         setUsuarios((prev) => [...prev, nuevo]);
         mostrarAlerta("success", "Creado", "Usuario agregado correctamente");
       }
@@ -203,7 +257,10 @@ function PanelAdmin() {
 
     if (resultado.isConfirmed) {
       try {
+        const usuarioAEliminar = usuarios.find(u => u.id === id);
         await ServicesUsers.deleteUsuarios(id);
+        await ServicesHistorial.createUsuarioHistorial(usuarioAEliminar, "eliminado");
+
         setUsuarios((prev) => prev.filter((u) => u.id !== id));
         mostrarAlerta("success", "Eliminado", "Usuario eliminado correctamente");
       } catch {
@@ -265,6 +322,12 @@ function PanelAdmin() {
           onClick={() => setVistaActual("servicios")}
         >
           Servicios
+        </button>
+        <button
+          className={vistaActual === "historial" ? "activo" : ""}
+          onClick={() => setVistaActual("historial")}
+        >
+          Historial
         </button>
       </nav>
 
@@ -451,6 +514,104 @@ function PanelAdmin() {
       {vistaActual === "servicios" && (
         <div className="seccionServicios">
           <ServicioAdmin />
+        </div>
+      )}
+
+      {vistaActual === "historial" && (
+        <div className="seccionHistorial">
+          <h2>Historial de Cambios</h2>
+          <p className="descripcionHistorial">
+            Consulta el historial completo de todas las operaciones realizadas en el sistema
+          </p>
+
+          <div className="botonesHistorial">
+            <button
+              className="btnHistorial btnCitas"
+              onClick={() => abrirModalHistorial("citas")}
+            >
+              Historial de Citas
+            </button>
+            <button
+              className="btnHistorial btnUsuarios"
+              onClick={() => abrirModalHistorial("usuarios")}
+            >
+              Historial de Usuarios
+            </button>
+            <button
+              className="btnHistorial btnServicios"
+              onClick={() => abrirModalHistorial("servicios")}
+            >
+              Historial de Servicios
+            </button>
+            <button
+              className="btnHistorial btnComentarios"
+              onClick={() => abrirModalHistorial("comentarios")}
+            >
+              Historial de Comentarios
+            </button>
+          </div>
+        </div>
+      )}
+
+      {modalHistorial && (
+        <div className="modalHistorial">
+          <div className="modalContenido modalHistorialContenido">
+            <div className="headerModal">
+              <h3>Historial de {tipoHistorial.charAt(0).toUpperCase() + tipoHistorial.slice(1)}</h3>
+              <button className="btnCerrarModal" onClick={cerrarModalHistorial}>X</button>
+            </div>
+
+            <div className="listaHistorial">
+              {datosHistorial.length === 0 ? (
+                <p className="sinDatos">No hay registros en el historial</p>
+              ) : (
+                datosHistorial.map((registro) => (
+                  <div key={registro.id} className={`registroHistorial ${registro.accion}`}>
+                    <div className="accionBadge">{registro.accion}</div>
+                    <div className="infoRegistro">
+                      {tipoHistorial === "citas" && (
+                        <>
+                          <p><strong>Cliente:</strong> {registro.nombre}</p>
+                          <p><strong>Email:</strong> {registro.email}</p>
+                          <p><strong>Servicio:</strong> {registro.servicio}</p>
+                          <p><strong>Estado:</strong> {registro.estado}</p>
+                          {registro.fecha && <p><strong>Fecha cita:</strong> {formatearFecha(registro.fecha)}</p>}
+                        </>
+                      )}
+                      {tipoHistorial === "usuarios" && (
+                        <>
+                          <p><strong>Nombre:</strong> {registro.nombre}</p>
+                          <p><strong>Email:</strong> {registro.email}</p>
+                          <p><strong>Cedula:</strong> {registro.cedula}</p>
+                          <p><strong>Telefono:</strong> {registro.telefono}</p>
+                        </>
+                      )}
+                      {tipoHistorial === "servicios" && (
+                        <>
+                          <p><strong>Servicio:</strong> {registro.nombre}</p>
+                          <p><strong>Descripcion:</strong> {registro.descripcion}</p>
+                          <p><strong>Precio:</strong> {registro.precio}</p>
+                          <p><strong>Duracion:</strong> {registro.duracion} min</p>
+                          <p><strong>Tipo:</strong> {registro.tipo}</p>
+                        </>
+                      )}
+                      {tipoHistorial === "comentarios" && (
+                        <>
+                          <p><strong>Usuario:</strong> {registro.nombreUsuario}</p>
+                          <p><strong>Comentario:</strong> {registro.comentario}</p>
+                          <p><strong>Rating:</strong> {registro.rating}</p>
+                          <p><strong>Servicio:</strong> {registro.servicioNombre}</p>
+                        </>
+                      )}
+                      <small className="fechaHistorial">
+                        Registrado: {formatearFecha(registro.fechaHistorial)}
+                      </small>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

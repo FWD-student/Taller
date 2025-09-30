@@ -23,7 +23,7 @@ const TicketGenerator = {
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(28);
       doc.setFont(undefined, 'bold');
-      doc.text('TALLER DE MOTOS', 105, 18, { align: 'center' });
+      doc.text('TALLER DE MOTOS JPL', 105, 18, { align: 'center' });
 
       doc.setFontSize(14);
       doc.setFont(undefined, 'normal');
@@ -162,9 +162,9 @@ const TicketGenerator = {
 
       doc.setFont(undefined, 'normal');
       doc.setFontSize(9);
-      doc.text('📧 luisblocon15@gmail.com', 105, yPos + 11, { align: 'center' });
-      doc.text('📱 +506 6348-0444', 105, yPos + 16, { align: 'center' });
-      doc.text('📞 2663 6363', 105, yPos + 21, { align: 'center' });
+      doc.text('Correo: luisblocon15@gmail.com', 105, yPos + 11, { align: 'center' });
+      doc.text('Celular +506 6348-0444', 105, yPos + 16, { align: 'center' });
+      doc.text('Telefono 2663 6363', 105, yPos + 21, { align: 'center' });
 
       // Pie de página
       yPos += 35;

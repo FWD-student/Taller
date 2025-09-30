@@ -253,8 +253,7 @@
   }
 
   .carrusel__wrapper {
-    flex-direction: column;
-    gap: 15px;
+    gap: 10px;
   }
 
   .carrusel__btn-nav {
@@ -263,18 +262,9 @@
     font-size: 42px;
   }
 
-  .carrusel__btn-anterior {
-    order: 3;
-  }
-
   .carrusel__card {
-    order: 2;
     padding: 25px;
     min-height: 300px;
-  }
-
-  .carrusel__btn-siguiente {
-    order: 4;
   }
 
   .carrusel__avatar {

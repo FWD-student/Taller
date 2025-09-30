@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ServiceCitas from '../../services/ServicesCitas'
+import ServicesHistorial from '../../services/ServicesHistorial'
+import EmailService from '../../services/EmailService'
 import TicketGenerator from '../../utils/TicketGenerator'
 import Swal from 'sweetalert2'
 import '../Form/form.css'
@@ -187,6 +189,11 @@ function FormCitas({ servicioSeleccionado }) {
       };
 
       const citaCreada = await ServiceCitas.createCitas(nuevaCita);
+      await ServicesHistorial.createCitaHistorial(citaCreada, "creado");
+
+      // Enviar email de confirmación
+      await EmailService.emailConfirmacionCita(citaCreada, usuario);
+
       setListaCitas(prevCitas => [...prevCitas, citaCreada]);
 
       const usuarioLogueado = sessionStorage.getItem('usuario');
@@ -265,7 +272,9 @@ function FormCitas({ servicioSeleccionado }) {
     if (!resultado.isConfirmed) return;
 
     try {
+      const citaAEliminar = listaCitas.find(c => c.id === id);
       await ServiceCitas.deleteCitas(id);
+      await ServicesHistorial.createCitaHistorial(citaAEliminar, "eliminado");
       setListaCitas(prevCitas => prevCitas.filter(cita => cita.id !== id));
       mostrarAlerta('success', 'Eliminada', 'La cita ha sido eliminada correctamente');
     } catch (error) {
