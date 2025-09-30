@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
-import Servicios from '../components/Servicio/Servicios'
+import ServicioPublico from '../components/ServicioPublico/ServicioPublico'
 
 function Servicios() {
   return (
     <div>
       <Header/>
-      <Servicios/>
+      <ServicioPublico/>
       <Footer/>
     </div>
   )

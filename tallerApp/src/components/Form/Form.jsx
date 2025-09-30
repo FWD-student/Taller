@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import ServiceCitas from '../../services/ServicesCitas'
+import TicketGenerator from '../../utils/TicketGenerator'
 import Swal from 'sweetalert2'
 import '../Form/form.css'
 
-function FormCitas() {
+function FormCitas({ servicioSeleccionado }) {
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -17,23 +18,49 @@ function FormCitas() {
   const [listaCitas, setListaCitas] = useState([]);
 
   useEffect(() => {
+    const usuarioGuardado = sessionStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      const { nombre, email, telefono } = JSON.parse(usuarioGuardado);
+      setFormData(prev => ({
+        ...prev,
+        nombre: nombre || '',
+        email: email || '',
+        telefono: telefono || ''
+      }));
+    }
     cargarCitas();
   }, []);
 
   useEffect(() => {
-  const usuarioGuardado = sessionStorage.getItem('usuario');
-  if (usuarioGuardado) {
-    const { nombre, email, telefono } = JSON.parse(usuarioGuardado);
-    setFormData(prev => ({
-      ...prev,
-      nombre,
-      email,
-      telefono
-    }));
-  }
+    const checkUserSession = () => {
+      const usuarioActual = sessionStorage.getItem('usuario');
+      if (!usuarioActual) {
+        setListaCitas([]);
+        setFormData({
+          nombre: '',
+          email: '',
+          telefono: '',
+          servicio: '',
+          fecha: '',
+          hora: '',
+          mensaje: ''
+        });
+      }
+    };
 
-  cargarCitas();
-}, []);
+    const interval = setInterval(checkUserSession, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (servicioSeleccionado) {
+      setFormData(prev => ({
+        ...prev,
+        servicio: servicioSeleccionado
+      }));
+    }
+  }, [servicioSeleccionado]);
 
   const obtenerFechaMinima = () => {
     const hoy = new Date();
@@ -43,11 +70,23 @@ function FormCitas() {
   const cargarCitas = async () => {
     try {
       const citas = await ServiceCitas.getCitas();
-      setListaCitas(citas);
+      const usuarioGuardado = sessionStorage.getItem('usuario');
+
+      if (usuarioGuardado) {
+        const usuario = JSON.parse(usuarioGuardado);
+        const citasDelUsuario = citas.filter(cita => cita.userId === usuario.id);
+        setListaCitas(citasDelUsuario);
+      } else {
+        setListaCitas([]);
+      }
     } catch (error) {
       console.error("Error al cargar citas:", error);
       mostrarAlerta('error', 'Error', 'No se pudieron cargar las citas');
     }
+  };
+
+  const generarCodigoConfirmacion = () => {
+    return 'CITA-' + Math.random().toString(36).substr(2, 9).toUpperCase();
   };
 
   const handleChange = (evento) => {
@@ -98,7 +137,7 @@ function FormCitas() {
       return false;
     }
 
-    // Validación de email
+    //las validaciones sugeridas
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       mostrarAlerta('warning', 'Email inválido', 'Por favor ingresa un email válido');
@@ -130,6 +169,9 @@ function FormCitas() {
     }
 
     try {
+      const usuarioGuardado = sessionStorage.getItem('usuario');
+      const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+
       const nuevaCita = {
         nombre: formData.nombre.trim(),
         email: formData.email.trim().toLowerCase(),
@@ -139,22 +181,69 @@ function FormCitas() {
         hora: formData.hora,
         mensaje: formData.mensaje.trim(),
         fechaCreacion: new Date().toISOString(),
-        estado: 'pendiente'
+        estado: 'pendiente',
+        userId: usuario ? usuario.id : null,
+        codigoConfirmacion: generarCodigoConfirmacion()
       };
-      
+
       const citaCreada = await ServiceCitas.createCitas(nuevaCita);
       setListaCitas(prevCitas => [...prevCitas, citaCreada]);
 
-      setFormData({
-        nombre: '',
-        email: '',
-        telefono: '',
-        servicio: '',
-        fecha: '',
-        hora: '',
-        mensaje: ''
+      const usuarioLogueado = sessionStorage.getItem('usuario');
+      if (!usuarioLogueado) {
+        setFormData({
+          nombre: '',
+          email: '',
+          telefono: '',
+          servicio: '',
+          fecha: '',
+          hora: '',
+          mensaje: ''
+        });
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          servicio: '',
+          fecha: '',
+          hora: '',
+          mensaje: ''
+        }));
+      }
+
+      const result = await Swal.fire({
+        icon: 'success',
+        title: '¡Cita creada exitosamente!',
+        html: `
+          <p>Tu cita ha sido creada correctamente.</p>
+          <p><strong>Código de confirmación:</strong></p>
+          <p style="font-size: 18px; color: #e74c3c; font-weight: bold;">${citaCreada.codigoConfirmacion}</p>
+        `,
+        confirmButtonColor: '#e74c3c',
+        confirmButtonText: '📄 Descargar Ticket',
+        showCancelButton: true,
+        cancelButtonText: 'Cerrar',
+        cancelButtonColor: '#95a5a6'
       });
-      mostrarAlerta('success', 'Éxito', 'Tu cita ha sido creada correctamente'); 
+
+      if (result.isConfirmed) {
+        try {
+          await TicketGenerator.generarTicket(citaCreada, usuario);
+          Swal.fire({
+            icon: 'success',
+            title: 'Ticket descargado',
+            text: 'El ticket se ha descargado correctamente',
+            confirmButtonColor: '#e74c3c'
+          });
+        } catch (error) {
+          console.error('Error al descargar ticket:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo descargar el ticket',
+            confirmButtonColor: '#e74c3c'
+          });
+        }
+      }
     } catch (error) {
       console.error("Error al crear cita:", error);
       mostrarAlerta('error', 'Error', 'No se pudo crear la cita');
@@ -385,7 +474,24 @@ function FormCitas() {
                 </div>
 
                 <div className='citaActions'>
-                  <button 
+                  <button
+                    className='btnDescargar'
+                    onClick={async () => {
+                      try {
+                        const usuarioGuardado = sessionStorage.getItem('usuario');
+                        const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+                        await TicketGenerator.generarTicket(cita, usuario);
+                        mostrarAlerta('success', 'Ticket descargado', 'El ticket se ha descargado correctamente');
+                      } catch (error) {
+                        console.error('Error al descargar ticket:', error);
+                        mostrarAlerta('error', 'Error', 'No se pudo descargar el ticket');
+                      }
+                    }}
+                    title="Descargar ticket"
+                  >
+                    📄 Ticket
+                  </button>
+                  <button
                     className='btnBorrar'
                     onClick={() => eliminarCita(cita.id)}
                     title="Eliminar cita"

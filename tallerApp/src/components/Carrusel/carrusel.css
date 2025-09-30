@@ -4,7 +4,11 @@
   padding: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-left: 4px solid #e74c3c;
-  height: fit-content;
+  height: 100%;
+  width: 100%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .tituloMecanica {
@@ -18,10 +22,21 @@
 .contenedorMecanica .carousel {
   border-radius: 8px;
   overflow: hidden;
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 600px;
+}
+
+.contenedorMecanica .carousel-inner,
+.contenedorMecanica .carousel-item {
+  height: 100%;
 }
 
 .imgMecanic {
-  height: 400px;
+  height: 100%;
+  min-height: 600px;
+  width: 100%;
   object-fit: cover;
   filter: brightness(0.8);
   transition: 0.3s ease;

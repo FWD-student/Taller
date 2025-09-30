@@ -1,0 +1,243 @@
+:root {
+  --bg-dark: #2c3e50;
+  --bg-light: #ecf0f1;
+  --accent: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-muted: #6c757d;
+  --border-radius: 6px;
+  --transition: 0.3s ease;
+}
+
+.contenedorServ {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f8f9fa;
+  min-height: 80vh;
+}
+
+.headerServicios {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--accent);
+}
+
+.headerServicios h2 {
+  color: var(--bg-dark);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.headerServicios p {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin: 0;
+}
+
+
+.mensajeRegistro {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white !important;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.listaServicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 24px;
+}
+
+.cardServicio {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.cardServicio.promocion {
+  border: 3px solid #f39c12;
+  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+.cardServicio:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cardServicio.promocion:hover {
+  box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+}
+
+.badgePromocion {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 10;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.cardServicio img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.contenidoTarjeta {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardServicio h3 {
+  color: var(--bg-dark);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.descripcion {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.detallesServicio {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: var(--border-radius);
+}
+
+.detallesServicio p {
+  margin: 0;
+  color: var(--bg-dark);
+  font-size: 14px;
+}
+
+.precio {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.duracion {
+  color: var(--text-muted);
+}
+
+.btnAgendar {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btnAgendar:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btnRegistrar {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btnRegistrar:hover {
+  background: linear-gradient(135deg, #2980b9, #21618c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 20px 15px;
+  }
+
+  .headerServicios h2 {
+    font-size: 26px;
+  }
+
+  .headerServicios p {
+    font-size: 16px;
+  }
+
+  .listaServicios {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .cardServicio h3 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerServicios h2 {
+    font-size: 24px;
+  }
+
+  .detallesServicio {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

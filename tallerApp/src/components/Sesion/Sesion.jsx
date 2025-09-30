@@ -36,9 +36,9 @@ const Sesion = () => {
       return mostrarAlerta('warning', 'Campos incompletos', 'Por favor completa todos los campos');
     }
 
-    if (formLogin.usuario === ADMIN_CREDENTIALS.usuario && 
+    if (formLogin.usuario.toLowerCase() === ADMIN_CREDENTIALS.usuario.toLowerCase() &&
         formLogin.password === ADMIN_CREDENTIALS.password) {
-      
+
       sessionStorage.setItem('usuario', JSON.stringify({
         id: 'admin',
         nombre: 'Administrador',
@@ -61,7 +61,8 @@ const Sesion = () => {
     try {
       const usuarios = await ServicesUsers.getUsuarios();
       const usuario = usuarios.find(u =>
-        (u.email === formLogin.usuario || u.nombre === formLogin.usuario) &&
+        (u.email.toLowerCase() === formLogin.usuario.toLowerCase() ||
+         u.nombre.toLowerCase() === formLogin.usuario.toLowerCase()) &&
         u.password === formLogin.password
       );
 
@@ -98,7 +99,31 @@ const Sesion = () => {
       return mostrarAlerta('warning', 'Campos incompletos', 'Por favor completa todos los campos');
     }
 
+    // Validar contraseña: mínimo 8 caracteres alfanuméricos
+    if (formRegistro.password.length < 8) {
+      return mostrarAlerta('warning', 'Contraseña débil', 'La contraseña debe tener al menos 8 caracteres');
+    }
+
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+    if (!passwordRegex.test(formRegistro.password)) {
+      return mostrarAlerta('warning', 'Contraseña inválida', 'La contraseña debe contener letras y números');
+    }
+
     try {
+      const usuarios = await ServicesUsers.getUsuarios();
+
+      // Validar email no repetido
+      const emailExiste = usuarios.some(u => u.email.toLowerCase() === formRegistro.email.toLowerCase());
+      if (emailExiste) {
+        return mostrarAlerta('warning', 'Email en uso', 'Este correo electrónico ya está registrado');
+      }
+
+      // Validar teléfono máximo 2 veces
+      const vecesUsadoTelefono = usuarios.filter(u => u.telefono === formRegistro.telefono).length;
+      if (vecesUsadoTelefono >= 2) {
+        return mostrarAlerta('warning', 'Teléfono en uso', 'Este número de teléfono ya ha sido registrado el máximo de veces permitidas');
+      }
+
       await ServicesUsers.createUsuarios(formRegistro);
       await Swal.fire({
         icon: 'success',

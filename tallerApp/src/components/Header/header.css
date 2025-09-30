@@ -24,7 +24,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  min-height: 100px; 
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .contenedorTitulo {
@@ -43,7 +45,7 @@
 }
 
 .logo {
-  height: 50px;
+  height: 55px; 
   border-radius: 18%;
   transition: transform var(--transition);
 }
@@ -51,14 +53,14 @@
   transform: scale(1.05);
 }
 
-.navBar {
+.navBarlist {
   flex: 1;
   display: flex;
   justify-content: flex-end;
   margin-left: 20px;
 }
 
-.list {
+.lista {
   display: flex;
   gap: 30px;
   list-style: none;
@@ -67,7 +69,7 @@
   align-items: center;
 }
 
-.item a {
+.itemes a {
   color: var(--bg-light);
   text-decoration: none;
   font-size: 16px;
@@ -75,16 +77,18 @@
   padding: 10px 15px;
   border-radius: var(--border-radius);
   transition: var(--transition);
-  position: relative;
   text-transform: capitalize;
+  border: 1px solid transparent;    /* borde invisible */
 }
-.item a:hover {
+
+.itemes a:hover,
+.itemes a.active {
   color: var(--accent);
-  background-color: var(--hover-bg);
-  transform: translateY(-2px);
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid var(--accent);  /* resalta con el rojo */
 }
-.item a::after,
-.item a.active::after {
+.itemes a::after,
+.itemes a.active::after {
   content: '';
   position: absolute;
   bottom: 5px;
@@ -95,11 +99,11 @@
   transform: translateX(-50%);
   transition: var(--transition);
 }
-.item a:hover::after,
-.item a.active::after {
+.itemes a:hover::after,
+.itemes a.active::after {
   width: 80%;
 }
-.item a.active {
+.itemes a.active {
   color: var(--accent);
   background-color: rgba(231, 76, 60, 0.1);
 }
@@ -195,44 +199,55 @@
   background-color: #c0392b;
 }
 
+
 @media (max-width: 768px) {
   .header-container {
-    padding: 0 15px;
-    height: 60px;
-    flex-wrap: wrap;
+    padding: 10px 15px;
+    min-height: 90px; 
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
   }
+
   .header h1 {
-    font-size: 24px;
+    font-size: 22px;
     order: 2;
+    text-align: center;
   }
+
   .logo {
-    height: 40px;
+    height: 45px;
     order: 1;
   }
+
   .navBar {
     order: 3;
     width: 100%;
     justify-content: center;
     margin: 0;
   }
+
   .list {
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .item a {
     font-size: 14px;
     padding: 8px 12px;
   }
+
   .seccionAuth {
     order: 4;
     margin-top: 10px;
   }
+
   .nombreUsuario {
     display: none;
   }
+
   .menuUsuario {
     right: -10px;
   }
@@ -240,22 +255,27 @@
 
 @media (max-width: 480px) {
   .header-container {
-    height: auto;
-    padding: 10px 15px;
+    min-height: auto;
+    padding: 12px 15px;
   }
+
   .header h1 {
     font-size: 20px;
   }
+
   .logo {
-    height: 35px;
+    height: 38px;
   }
+
   .list {
     gap: 15px;
   }
+
   .item a {
     font-size: 13px;
     padding: 6px 10px;
   }
+
   .btnUsuario {
     padding: 6px 10px;
   }

@@ -69,12 +69,12 @@ function Header() {
           <h1>Taller JPL</h1>
         </div>
 
-        <nav className="navBar">
-          <ul className="list">
-            <li className="item"><Link to="/home">Home</Link></li>
-            <li className="item"><Link to="/servicios">Servicios</Link></li>
-            <li className="item"><Link to="/contacto">Contacto</Link></li>
-            <li className="item"><Link to="/acerca">Acerca de</Link></li>
+        <nav className="navBarlist">
+          <ul className="lista">
+            <li className="itemes"><Link to="/home">Home</Link></li>
+            <li className="itemes"><Link to="/servicios">Servicios</Link></li>
+            <li className="itemes"><Link to="/contacto">Contacto</Link></li>
+            <li className="itemes"><Link to="/nosotros">Acerca de</Link></li>
           </ul>
         </nav>
 

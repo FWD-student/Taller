@@ -207,3 +207,84 @@
   font-style: italic;
   color: #2c3e50;
 }
+
+.headerSeccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerSeccion h2 {
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.btnAgregar {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btnAgregar:hover {
+  background: #c0392b;
+}
+
+.listaUsuarios {
+  display: grid;
+  gap: 15px;
+}
+
+.tarjetaUsuario {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.tarjetaUsuario .infoUsuario {
+  flex: 1;
+}
+
+.tarjetaUsuario .infoUsuario h4 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.tarjetaUsuario .infoUsuario p {
+  margin: 5px 0;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.accionesUsuario {
+  display: flex;
+  gap: 10px;
+}
+
+.btnEditar {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btnEditar:hover {
+  background: #1a252f;
+}

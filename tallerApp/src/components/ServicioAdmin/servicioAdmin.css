@@ -1,0 +1,293 @@
+:root {
+  --bg-dark: #2c3e50;
+  --bg-light: #ecf0f1;
+  --accent: #e74c3c;
+  --accent-hover: #c0392b;
+  --text-muted: #6c757d;
+  --border-radius: 6px;
+  --transition: 0.3s ease;
+}
+
+.contenedor {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headerServicios {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--accent);
+}
+
+.headerServicios h2 {
+  color: var(--bg-dark);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btnAgregar {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnAgregar:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.listaServicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.cardServicio {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.cardServicio:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cardServicio img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+}
+
+.cardServicio h3 {
+  color: var(--bg-dark);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cardServicio p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.cardServicio p strong {
+  color: var(--bg-dark);
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.acciones button {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.acciones button:first-child {
+  background-color: var(--bg-dark);
+  color: white;
+}
+
+.acciones button:first-child:hover {
+  background-color: #1a252f;
+}
+
+.btnEliminar {
+  background-color: var(--accent);
+  color: white;
+}
+
+.btnEliminar:hover {
+  background-color: var(--accent-hover);
+}
+
+.modalServicio {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContenido {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modalContenido h3 {
+  color: var(--bg-dark);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.modalContenido form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modalContenido input,
+.modalContenido textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.modalContenido input:focus,
+.modalContenido textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.modalContenido textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.accionesModal {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.accionesModal button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btnGuardar {
+  background-color: var(--accent);
+  color: white;
+}
+
+.btnGuardar:hover {
+  background-color: var(--accent-hover);
+}
+
+.accionesModal button:not(.btnGuardar) {
+  background-color: var(--text-muted);
+  color: white;
+}
+
+.accionesModal button:not(.btnGuardar):hover {
+  background-color: #5a6c7d;
+}
+
+.badgeContainer {
+  min-height: 25px;
+  margin-bottom: 10px;
+}
+
+.badgePromocion {
+  display: inline-block;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.modalContenido label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: var(--bg-dark);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.modalContenido select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  background: white;
+  cursor: pointer;
+}
+
+.modalContenido select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 20px 15px;
+  }
+
+  .headerServicios {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .btnAgregar {
+    width: 100%;
+  }
+
+  .listaServicios {
+    grid-template-columns: 1fr;
+  }
+
+  .modalContenido {
+    width: 95%;
+    padding: 20px;
+  }
+}

@@ -4,33 +4,66 @@
   padding: 2rem;
   min-height: 100vh;
   align-items: stretch;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .carrusel, .form {
   flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .bloque {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .bloque {
     flex-direction: column;
     padding: 1rem;
+    gap: 1.5rem;
   }
-  
-  .carrusel {
-    order: 1;
-  }
-  
+
   .form {
+    order: 1;
+    width: 100%;
+    flex: none;
+  }
+
+  .carrusel {
     order: 2;
+    width: 100%;
+    flex: none;
   }
 }
 
-@media (max-width: 768px) {
-  .form {
-    order: 1;
+@media (max-width: 480px) {
+  .bloque {
+    padding: 0.75rem;
+    gap: 1rem;
+    min-width: 320px;
   }
-  
-  .carrusel {
-    order: 2;
+}
+
+.bloqueComentarios {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .bloqueComentarios {
+    padding: 0 1rem;
+    margin: 30px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .bloqueComentarios {
+    padding: 0 0.75rem;
+    margin: 20px auto;
   }
 }

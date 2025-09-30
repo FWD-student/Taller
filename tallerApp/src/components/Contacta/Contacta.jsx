@@ -19,13 +19,13 @@ function Comentarios() {
             
             <div className='item'>
                 <h3>Telefono</h3>
-                <a href="tel:+506 6348-0444"><img className='tele' src= {telefono} alt="icono" /></a>
-                <p>+506 6348-0444</p>
+                <a href="tel:+506 6348 0444"><img className='tele' src= {telefono} alt="icono" /></a>
+                <p>+506 6348 0444</p>
             </div>
 
             <div className='item'>
                 <h3>Cotizacion</h3>
-                <a href="2663 6363"><img className='coti' src={cotizar} alt="icono" /></a>
+                <a href="tel:2663 6363"><img className='coti' src={cotizar} alt="icono" /></a>
                 <p>2663 6363</p>
             </div>
         </div>
