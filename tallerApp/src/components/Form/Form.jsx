@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ServiceCitas from '../../services/ServicesCitas'
 import ServicesHistorial from '../../services/ServicesHistorial'
 import EmailService from '../../services/EmailService'
@@ -18,6 +18,7 @@ function FormCitas({ servicioSeleccionado }) {
   });
 
   const [listaCitas, setListaCitas] = useState([]);
+  const sesionAnterior = useRef(sessionStorage.getItem('usuario'));
 
   useEffect(() => {
     const usuarioGuardado = sessionStorage.getItem('usuario');
@@ -36,7 +37,9 @@ function FormCitas({ servicioSeleccionado }) {
   useEffect(() => {
     const checkUserSession = () => {
       const usuarioActual = sessionStorage.getItem('usuario');
-      if (!usuarioActual) {
+
+      // Solo limpiar si había sesión antes y ahora no hay (cierre de sesión)
+      if (sesionAnterior.current && !usuarioActual) {
         setListaCitas([]);
         setFormData({
           nombre: '',
@@ -47,7 +50,13 @@ function FormCitas({ servicioSeleccionado }) {
           hora: '',
           mensaje: ''
         });
+      } else if (!usuarioActual) {
+        // Si nunca hubo sesión, solo limpiar la lista de citas
+        setListaCitas([]);
       }
+
+      // Actualizar la referencia
+      sesionAnterior.current = usuarioActual;
     };
 
     const interval = setInterval(checkUserSession, 500);
