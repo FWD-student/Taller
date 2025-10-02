@@ -38,7 +38,7 @@ function FormCitas({ servicioSeleccionado }) {
     const checkUserSession = () => {
       const usuarioActual = sessionStorage.getItem('usuario');
 
-      // Solo limpiar si había sesión antes y ahora no hay (cierre de sesión)
+      // Si había sesión antes y ahora no hay (cierre de sesión)
       if (sesionAnterior.current && !usuarioActual) {
         setListaCitas([]);
         setFormData({
@@ -50,9 +50,13 @@ function FormCitas({ servicioSeleccionado }) {
           hora: '',
           mensaje: ''
         });
-      } else if (!usuarioActual) {
-        // Si nunca hubo sesión, solo limpiar la lista de citas
-        setListaCitas([]);
+      }
+      // Si no había sesión antes y ahora sí hay (inicio de sesión o registro)
+      else if (!sesionAnterior.current && usuarioActual) {
+        // Limpiar localStorage de citas no logueadas
+        localStorage.removeItem('citasNoLogueado');
+        // Recargar citas del usuario logueado
+        cargarCitas();
       }
 
       // Actualizar la referencia
@@ -78,17 +82,25 @@ function FormCitas({ servicioSeleccionado }) {
     return hoy.toISOString().split('T')[0];
   };
 
+  // aca traigo las citas del usuario haciendo consulta al backend o al localstorage dependiendo si inicio sesion
   const cargarCitas = async () => {
     try {
-      const citas = await ServiceCitas.getCitas();
       const usuarioGuardado = sessionStorage.getItem('usuario');
 
       if (usuarioGuardado) {
+        // Usuario logueado: cargar citas de la base de datos
+        const citas = await ServiceCitas.getCitas();
         const usuario = JSON.parse(usuarioGuardado);
         const citasDelUsuario = citas.filter(cita => cita.userId === usuario.id);
         setListaCitas(citasDelUsuario);
       } else {
-        setListaCitas([]);
+        // Usuario no logueado: cargar citas de localStorage
+        const citasLocales = localStorage.getItem('citasNoLogueado');
+        if (citasLocales) {
+          setListaCitas(JSON.parse(citasLocales));
+        } else {
+          setListaCitas([]);
+        }
       }
     } catch (error) {
       console.error("Error al cargar citas:", error);
@@ -127,6 +139,7 @@ function FormCitas({ servicioSeleccionado }) {
     }));
   };
 
+  // aca verifico que el email tenga formato correcto y el telefono tenga 8 digitos empezando con 6 7 u 8
   const validarFormulario = () => {
     if (!formData.nombre.trim()) {
       mostrarAlerta('warning', 'Campo requerido', 'El nombre es obligatorio');
@@ -155,8 +168,14 @@ function FormCitas({ servicioSeleccionado }) {
       return false;
     }
 
-    if (formData.telefono.length < 8) {
-      mostrarAlerta('warning', 'Teléfono inválido', 'El teléfono debe tener al menos 8 dígitos');
+    if (formData.telefono.length !== 8) {
+      mostrarAlerta('warning', 'Teléfono inválido', 'El teléfono debe tener exactamente 8 dígitos');
+      return false;
+    }
+
+    const primerDigito = formData.telefono[0];
+    if (!['6', '7', '8'].includes(primerDigito)) {
+      mostrarAlerta('warning', 'Teléfono inválido', 'El teléfono debe comenzar con 6, 7 u 8');
       return false;
     }
 
@@ -164,7 +183,7 @@ function FormCitas({ servicioSeleccionado }) {
       const fechaSeleccionada = new Date(formData.fecha);
       const hoy = new Date();
       hoy.setHours(0, 0, 0, 0);
-      
+
       if (fechaSeleccionada < hoy) {
         mostrarAlerta('warning', 'Fecha inválida', 'No puedes seleccionar una fecha anterior a hoy');
         return false;
@@ -203,7 +222,16 @@ function FormCitas({ servicioSeleccionado }) {
       // Enviar email de confirmación
       await EmailService.emailConfirmacionCita(citaCreada, usuario);
 
-      setListaCitas(prevCitas => [...prevCitas, citaCreada]);
+      // Actualizar la lista de citas
+      if (usuario) {
+        // Usuario logueado: agregar a la lista normal
+        setListaCitas(prevCitas => [...prevCitas, citaCreada]);
+      } else {
+        // Usuario no logueado: guardar en localStorage
+        const citasActualizadas = [...listaCitas, citaCreada];
+        setListaCitas(citasActualizadas);
+        localStorage.setItem('citasNoLogueado', JSON.stringify(citasActualizadas));
+      }
 
       const usuarioLogueado = sessionStorage.getItem('usuario');
       if (!usuarioLogueado) {
@@ -281,10 +309,20 @@ function FormCitas({ servicioSeleccionado }) {
     if (!resultado.isConfirmed) return;
 
     try {
+      const usuarioGuardado = sessionStorage.getItem('usuario');
       const citaAEliminar = listaCitas.find(c => c.id === id);
+
       await ServiceCitas.deleteCitas(id);
       await ServicesHistorial.createCitaHistorial(citaAEliminar, "eliminado");
-      setListaCitas(prevCitas => prevCitas.filter(cita => cita.id !== id));
+
+      const citasActualizadas = listaCitas.filter(cita => cita.id !== id);
+      setListaCitas(citasActualizadas);
+
+      // Si no hay usuario logueado, actualizar localStorage
+      if (!usuarioGuardado) {
+        localStorage.setItem('citasNoLogueado', JSON.stringify(citasActualizadas));
+      }
+
       mostrarAlerta('success', 'Eliminada', 'La cita ha sido eliminada correctamente');
     } catch (error) {
       console.error("Error al eliminar cita:", error);
@@ -384,7 +422,7 @@ function FormCitas({ servicioSeleccionado }) {
               placeholder="Número de teléfono *"
               value={formData.telefono}
               onChange={handleChange}
-              maxLength="15"
+              maxLength="8"
               pattern="[0-9]*"
             />
           </div>

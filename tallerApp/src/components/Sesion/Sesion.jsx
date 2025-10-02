@@ -64,6 +64,7 @@ const Sesion = () => {
       return;
     }
 
+    // aca busco en la db si existe un usuario con ese email o nombre y password
     try {
       const usuarios = await ServicesUsers.getUsuarios();
       const usuario = usuarios.find(u =>
@@ -103,10 +104,21 @@ const Sesion = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
 
+  // aca consulto la db para verificar que el email no este repetido y que el telefono no se haya usado mas de 2 veces luego envio codigo por email
   const handleRegistro = async (e) => {
     e.preventDefault();
     if (!validarCampos(formRegistro)) {
       return mostrarAlerta('warning', 'Campos incompletos', 'Por favor completa todos los campos');
+    }
+
+    // Validar teléfono: exactamente 8 dígitos que comience con 6, 7 u 8
+    if (formRegistro.telefono.length !== 8) {
+      return mostrarAlerta('warning', 'Teléfono inválido', 'El teléfono debe tener exactamente 8 dígitos');
+    }
+
+    const primerDigito = formRegistro.telefono[0];
+    if (!['6', '7', '8'].includes(primerDigito)) {
+      return mostrarAlerta('warning', 'Teléfono inválido', 'El teléfono debe comenzar con 6, 7 u 8');
     }
 
     // Validar contraseña: mínimo 8 caracteres alfanuméricos
@@ -334,7 +346,7 @@ const Sesion = () => {
                   placeholder="Número de teléfono"
                   value={formRegistro.telefono}
                   onChange={e => handleChange(e, setFormRegistro, v => v.replace(/\D/g, ''))}
-                  maxLength="10"
+                  maxLength="8"
                   required
                 />
               </div>
