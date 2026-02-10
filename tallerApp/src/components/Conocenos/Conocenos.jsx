@@ -72,22 +72,22 @@ function Conocenos() {
         <h2>Nuestros Valores</h2>
         <div className="gridValores">
           <div className="cardValor">
-            <div className="iconoValor">🔧</div>
+            <div className="iconoValor">⚙</div>
             <h3>Excelencia</h3>
             <p>Cada trabajo es una oportunidad para demostrar nuestra pasión y conocimiento técnico</p>
           </div>
           <div className="cardValor">
-            <div className="iconoValor">🤝</div>
+            <div className="iconoValor">✓</div>
             <h3>Honestidad</h3>
             <p>Transparencia total en diagnósticos, presupuestos y tiempos de entrega</p>
           </div>
           <div className="cardValor">
-            <div className="iconoValor">👨‍👩‍👦</div>
+            <div className="iconoValor">♥</div>
             <h3>Familia</h3>
             <p>Tratamos a cada cliente como parte de nuestra familia motociclista</p>
           </div>
           <div className="cardValor">
-            <div className="iconoValor">💚</div>
+            <div className="iconoValor">★</div>
             <h3>Compromiso</h3>
             <p>Dedicación absoluta con la seguridad y satisfacción de nuestros clientes</p>
           </div>

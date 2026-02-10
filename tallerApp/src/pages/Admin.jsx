@@ -4,9 +4,11 @@ import Header from '../components/Header/Header'
 
 function Admin() {
   return (
-    <div>
+    <div className="pageContainer">
       <Header/>
-      <Administracion/>
+      <main className="pageContent">
+        <Administracion/>
+      </main>
     </div>
   )
 }

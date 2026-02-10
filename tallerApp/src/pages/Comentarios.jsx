@@ -5,9 +5,11 @@ import ComentariosUsers from '../components/ComentariosUsers/ComentariosUsers'
 
 function Comentarios() {
   return (
-    <div>
+    <div className="pageContainer">
       <Header />
-      <ComentariosUsers />
+      <main className="pageContent">
+        <ComentariosUsers />
+      </main>
       <Footer />
     </div>
   )

@@ -157,6 +157,11 @@
 .iconoValor {
   font-size: 48px;
   margin-bottom: 20px;
+  color: #e74c3c;
+}
+
+.iconoValor svg {
+  font-size: 48px;
 }
 
 .cardValor h3 {
@@ -320,6 +325,10 @@
   }
 
   .iconoValor {
+    font-size: 40px;
+  }
+
+  .iconoValor svg {
     font-size: 40px;
   }
 

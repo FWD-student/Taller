@@ -5,9 +5,11 @@ import ServicioPublico from '../components/ServicioPublico/ServicioPublico'
 
 function Servicios() {
   return (
-    <div>
+    <div className="pageContainer">
       <Header/>
-      <ServicioPublico/>
+      <main className="pageContent">
+        <ServicioPublico/>
+      </main>
       <Footer/>
     </div>
   )

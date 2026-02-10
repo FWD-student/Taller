@@ -5,9 +5,11 @@ import Footer from '../components/Footer/Footer'
 
 function Cuenta() {
   return (
-    <div>
+    <div className="pageContainer">
       <Header/>
-      <Perfil/>
+      <main className="pageContent">
+        <Perfil/>
+      </main>
       <Footer/>
     </div>
   )

@@ -10,11 +10,13 @@ function Home() {
   const servicioSeleccionado = location.state?.servicioSeleccionado
 
   return (
-    <div>
-        <Header/>
+    <div className="pageContainer">
+      <Header/>
+      <main className="pageContent">
         <CompoDual servicioSeleccionado={servicioSeleccionado}/>
         <Marcas/>
-        <Footer/>
+      </main>
+      <Footer/>
     </div>
   )
 }

@@ -5,9 +5,11 @@ import Conocenos from '../components/Conocenos/Conocenos'
 
 function Nosotros() {
   return (
-    <div>
+    <div className="pageContainer">
       <Header/>
-      <Conocenos/>
+      <main className="pageContent">
+        <Conocenos/>
+      </main>
       <Footer/>
     </div>
   )

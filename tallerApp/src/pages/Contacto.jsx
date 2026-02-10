@@ -5,10 +5,12 @@ import Contacta from '../components/Contacta/Contacta'
 
 function Contacto() {
   return (
-    <div>
-        <Header/>
+    <div className="pageContainer">
+      <Header/>
+      <main className="pageContent">
         <Contacta/>
-        <Footer/>
+      </main>
+      <Footer/>
     </div>
   )
 }
