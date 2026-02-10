@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import CloseIcon from '@mui/icons-material/Close';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import logo from '../../image/logo/LogoMecanic.jpg';
 import '../Header/header.css';
 
 function Header() {
   const [usuario, setUsuario] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [menuMobileOpen, setMenuMobileOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,12 +73,24 @@ function Header() {
           <h1>Taller JPL</h1>
         </div>
 
-        <nav className="navBarlist">
+        <button 
+          className="menuHamburguesa" 
+          onClick={() => setMenuMobileOpen(!menuMobileOpen)}
+          aria-label="Menú"
+        >
+          {menuMobileOpen ? <span style={{fontSize: '24px'}}>✕</span> : <span style={{fontSize: '24px'}}>☰</span>}
+        </button>
+
+        {menuMobileOpen && (
+          <div className="menuOverlay" onClick={() => setMenuMobileOpen(false)}></div>
+        )}
+
+        <nav className={`navBarlist ${menuMobileOpen ? 'mobileAbierto' : ''}`}>
           <ul className="lista">
-            <li className="itemes"><Link to="/home">Home</Link></li>
-            <li className="itemes"><Link to="/servicios">Servicios</Link></li>
-            <li className="itemes"><Link to="/contacto">Contacto</Link></li>
-            <li className="itemes"><Link to="/nosotros">Acerca de</Link></li>
+            <li className="itemes"><Link to="/home" onClick={() => setMenuMobileOpen(false)}>Home</Link></li>
+            <li className="itemes"><Link to="/servicios" onClick={() => setMenuMobileOpen(false)}>Servicios</Link></li>
+            <li className="itemes"><Link to="/contacto" onClick={() => setMenuMobileOpen(false)}>Contacto</Link></li>
+            <li className="itemes"><Link to="/nosotros" onClick={() => setMenuMobileOpen(false)}>Acerca de</Link></li>
           </ul>
         </nav>
 
@@ -83,6 +99,7 @@ function Header() {
             <div className="seccionUsuario">
               <button className="btnUsuario" onClick={() => setShowUserMenu(!showUserMenu)}>
                 <span className="nombreUsuario">Hola, {usuario.nombre.split(' ')[0]}</span>
+                <span className="iconoUsuarioMobile" style={{fontSize: '28px'}}>👤</span>
               </button>
 
               {showUserMenu && (

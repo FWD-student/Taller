@@ -118,6 +118,24 @@
   position: relative;
 }
 
+.menuHamburguesa {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--bg-light);
+  cursor: pointer;
+  padding: 8px;
+  z-index: 101;
+}
+
+.iconoUsuarioMobile {
+  display: none;
+}
+
+.menuOverlay {
+  display: none;
+}
+
 .btnUsuario {
   display: flex;
   align-items: center;
@@ -205,80 +223,184 @@
 @media (max-width: 768px) {
   .header-container {
     padding: 10px 15px;
-    min-height: 90px; 
-    flex-direction: column;
+    min-height: 70px;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
+    flex-wrap: nowrap;
   }
 
   .header h1 {
-    font-size: 22px;
-    order: 2;
-    text-align: center;
+    font-size: 18px;
   }
 
   .logo {
-    height: 45px;
-    order: 1;
+    height: 40px;
   }
 
-  .navBar {
-    order: 3;
+  .menuHamburguesa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+  }
+
+  .menuOverlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    justify-content: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 98;
+  }
+
+  .navBarlist {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--bg-dark);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 80px;
     margin: 0;
+    transition: left 0.3s ease;
+    z-index: 99;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
   }
 
-  .list {
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  .navBarlist.mobileAbierto {
+    left: 0;
   }
 
-  .item a {
-    font-size: 14px;
-    padding: 8px 12px;
+  .lista {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .itemes {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .itemes a {
+    display: block;
+    padding: 20px 25px;
+    font-size: 18px;
+    border-radius: 0;
+    border: none;
+  }
+
+  .itemes a:hover,
+  .itemes a.active {
+    background-color: rgba(231, 76, 60, 0.2);
+    border: none;
   }
 
   .seccionAuth {
-    order: 4;
-    margin-top: 10px;
+    margin-left: 0;
+    order: 3;
   }
 
   .nombreUsuario {
     display: none;
   }
 
+  .iconoUsuarioMobile {
+    display: block;
+    font-size: 32px;
+  }
+
+  .btnUsuario {
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+  }
+
   .menuUsuario {
-    right: -10px;
+    right: 0;
+    left: auto;
+    min-width: 280px;
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .menuUsuario .infoUsuario {
+    padding: 20px;
+  }
+
+  .menuUsuario .infoUsuario p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .menuUsuario .opcionMenu {
+    padding: 16px 20px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .header-container {
-    min-height: auto;
-    padding: 12px 15px;
+    min-height: 60px;
+    padding: 10px 12px;
   }
 
   .header h1 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .logo {
-    height: 38px;
+    height: 35px;
   }
 
-  .list {
-    gap: 15px;
+  .menuHamburguesa svg {
+    font-size: 28px;
   }
 
-  .item a {
-    font-size: 13px;
-    padding: 6px 10px;
+  .iconoUsuarioMobile {
+    font-size: 28px;
   }
 
   .btnUsuario {
-    padding: 6px 10px;
+    padding: 6px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .navBarlist {
+    width: 85%;
+    max-width: 280px;
+  }
+
+  .itemes a {
+    padding: 18px 20px;
+    font-size: 16px;
+  }
+
+  .menuUsuario {
+    min-width: 260px;
+    padding: 14px;
+    right: -5px;
+  }
+
+  .menuUsuario .infoUsuario {
+    padding: 18px;
+  }
+
+  .menuUsuario .infoUsuario p {
+    font-size: 15px;
+  }
+
+  .menuUsuario .opcionMenu {
+    padding: 14px 18px;
+    font-size: 15px;
   }
 }
