@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 // import MenuIcon from '@mui/icons-material/Menu';
 // import CloseIcon from '@mui/icons-material/Close';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import logo from '../../image/logo/LogoMecanic.jpg';
+import logo from '../../image/logo/LogoMecanic.JPG';
 import '../Header/header.css';
 
 function Header() {
