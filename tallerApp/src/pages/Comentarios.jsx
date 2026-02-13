@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
-import ComentariosUsers from '../components/ComentariosUsers/ComentariosUsers'
+import ComentariosUsers from '../components/comentariosUsers/ComentariosUsers'
 
 function Comentarios() {
   return (

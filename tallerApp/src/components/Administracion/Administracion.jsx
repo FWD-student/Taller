@@ -7,7 +7,7 @@ import ServicesHistorial from "../../services/ServicesHistorial";
 import EmailService from "../../services/EmailService";
 import Swal from "sweetalert2";
 import ServicioAdmin from "../ServicioAdmin/ServicioAdmin";
-import "./Administracion.css";
+import "./administracion.css";
 
 function PanelAdmin() {
   const [citas, setCitas] = useState([]);
