@@ -1,3 +1,26 @@
+/*
+PANEL DE ADMINISTRACIÓN - TALLER JPL
+=====================================
+Este componente maneja todo el panel de administración donde el admin puede:
+- Ver y gestionar citas (cambiar estado, eliminar)
+- Moderar comentarios de usuarios
+- Crear, editar y eliminar usuarios
+- Gestionar servicios (mediante componente ServicioAdmin)
+- Ver historial de operaciones
+
+CAMBIOS IMPORTANTES:
+- Antes usaba json-server en localhost:3001 (comentado abajo)
+- Ahora usa localStorage para persistir datos (las funciones de servicio se actualizaron)
+- Agregué validaciones estrictas en el formulario de usuarios:
+  * Cédula: solo números, exactamente 9 dígitos
+  * Teléfono: solo números, exactamente 8 dígitos, debe iniciar con 5,6,7 u 8
+  * Nombre: solo letras, espacios y tildes
+  * Email: formato válido con @ y dominio
+
+Las validaciones sanitizan automáticamente mientras el usuario escribe, 
+impidiendo que ingrese caracteres inválidos desde el principio.
+*/
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ServiceCitas from "../../services/ServicesCitas";
@@ -210,15 +233,57 @@ function PanelAdmin() {
     setFormUsuario({ cedula: "", nombre: "", telefono: "", email: "", password: "" });
   };
 
+  // Función para sanitizar inputs según el tipo de campo
+  const sanitizarInput = (name, value) => {
+    switch (name) {
+      case 'cedula':
+        // Solo números, máximo 9 dígitos (cédula costarricense)
+        return value.replace(/\D/g, '').slice(0, 9);
+      case 'telefono':
+        // Solo números, máximo 8 dígitos
+        return value.replace(/\D/g, '').slice(0, 8);
+      case 'nombre':
+        // Solo letras, espacios y tildes
+        return value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+      default:
+        return value;
+    }
+  };
+
   const handleChangeUsuario = (e) => {
     const { name, value } = e.target;
-    setFormUsuario((prev) => ({ ...prev, [name]: value }));
+    const valorSanitizado = sanitizarInput(name, value);
+    setFormUsuario((prev) => ({ ...prev, [name]: valorSanitizado }));
   };
 
   const guardarUsuario = async (e) => {
     e.preventDefault();
+    
+    // Validación de campos obligatorios
     if (!formUsuario.cedula || !formUsuario.nombre || !formUsuario.email || !formUsuario.password) {
       return mostrarAlerta("warning", "Campos incompletos", "Completa todos los campos obligatorios");
+    }
+
+    // Validación de cédula: debe tener 9 dígitos
+    if (formUsuario.cedula.length < 9) {
+      return mostrarAlerta("warning", "Cédula inválida", "La cédula debe tener 9 dígitos");
+    }
+
+    // Validación de teléfono: exactamente 8 dígitos
+    if (formUsuario.telefono.length !== 8) {
+      return mostrarAlerta("warning", "Teléfono inválido", "El teléfono debe tener exactamente 8 dígitos");
+    }
+
+    // Validación de teléfono: debe iniciar con 5, 6, 7 u 8
+    const primerDigito = formUsuario.telefono[0];
+    if (!['5', '6', '7', '8'].includes(primerDigito)) {
+      return mostrarAlerta("warning", "Teléfono inválido", "El teléfono debe comenzar con 5, 6, 7 u 8");
+    }
+
+    // Validación de email: formato válido
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formUsuario.email)) {
+      return mostrarAlerta("warning", "Email inválido", "Ingresa un correo electrónico válido");
     }
 
     try {

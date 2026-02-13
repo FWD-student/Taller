@@ -1,87 +1,48 @@
-async function getComentsUsers() {
-    try {
-        const peticion = await fetch('http://localhost:3001/comentsUsers', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+// Comentarios de usuarios migrados a localStorage
+const generarId = () => Math.random().toString(36).substr(2, 9);
 
-        if (!peticion.ok) {
-            throw new Error("Error al obtener las comentario");
-        }
+const getComentsUsers = () => {
+    const datos = localStorage.getItem('comentsUsers');
+    return datos ? JSON.parse(datos) : [];
+};
 
-        const consultas = await peticion.json();
-        return consultas;
+const createComentsUsers = (nuevoComentario) => {
+    const comentarios = getComentsUsers();
+    const comentarioConId = { 
+        ...nuevoComentario, 
+        id: generarId(),
+        fechaComentario: new Date().toISOString()
+    };
+    comentarios.push(comentarioConId);
+    localStorage.setItem('comentsUsers', JSON.stringify(comentarios));
+    return comentarioConId;
+};
 
-    } catch (error) {
-        console.error("Hay problemas para obtener", error);
-        throw error;
+const updateComentsUsers = (id, datosActualizados) => {
+    const comentarios = getComentsUsers();
+    const index = comentarios.findIndex(c => c.id === id);
+    if (index !== -1) {
+        comentarios[index] = { ...comentarios[index], ...datosActualizados };
+        localStorage.setItem('comentsUsers', JSON.stringify(comentarios));
+        return comentarios[index];
     }
-}
+    throw new Error("Comentario no encontrado");
+};
 
-async function createComentsUsers(nuevaConsulta) {
-    try {
-        const peticion = await fetch('http://localhost:3001/comentsUsers', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(nuevaConsulta)
-        });
+const deleteComentsUsers = (id) => {
+    const comentarios = getComentsUsers();
+    const nuevosComentarios = comentarios.filter(c => c.id !== id);
+    localStorage.setItem('comentsUsers', JSON.stringify(nuevosComentarios));
+    return { mensaje: "Comentario eliminado correctamente" };
+};
 
-        if (!peticion.ok) {
-            throw new Error("Error al crear la comentario");
-        }
+export default { getComentsUsers, createComentsUsers, updateComentsUsers, deleteComentsUsers };
 
-        const consultaCreada = await peticion.json();
-        return consultaCreada;
-
-    } catch (error) {
-        console.error("Error al crear", error);
-        throw error;
-    }
-}
-
-async function updateComentsUsers(id, datosActualizados) {
-    try {
-        const peticion = await fetch(`http://localhost:3001/comentsUsers/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datosActualizados)
-        });
-
-        if (!peticion.ok) {
-            throw new Error("Error al actualizar la comentario");
-        }
-
-        const consultaActualizada = await peticion.json();
-        return consultaActualizada;
-
-    } catch (error) {
-        console.error("Problema existente", error);
-        throw error;
-    }
-}
-
-async function deleteComentsUsers(id) {
-    try {
-        const peticion = await fetch(`http://localhost:3001/comentsUsers/${id}`, {
-            method: 'DELETE'
-        });
-
-        if (!peticion.ok) {
-            throw new Error("Error al eliminar la cita");
-        }
-
-        return { mensaje: "Comentario eliminada correctamente" };
-
-    } catch (error) {
-        console.error("Problema existente", error);
-        throw error;
-    }
-}
-
+/*
+// CÓDIGO ORIGINAL:
+async function getComentsUsers() {...}
+async function createComentsUsers(nuevaConsulta) {...}
+async function updateComentsUsers(id, datosActualizados) {...}
+async function deleteComentsUsers(id) {...}
 export default { getComentsUsers, createComentsUsers, updateComentsUsers, deleteComentsUsers};
+*/
